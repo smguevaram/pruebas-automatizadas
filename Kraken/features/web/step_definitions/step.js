@@ -33,6 +33,11 @@ When("I click in buttonName {string}", async function (buttonName) {
   }
 });
 
+When('I click anywhere on the page', async function() {
+  let bodyElement = await this.driver.$('body');
+  return await bodyElement.click();
+});
+
 When("I click in button {string}", async function (buttonName) {
   const elements = await this.driver.$$("button");
 
