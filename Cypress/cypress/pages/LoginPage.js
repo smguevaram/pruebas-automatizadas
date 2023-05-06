@@ -33,7 +33,6 @@ class LoginPage {
             this.enterPassword(credentials.password)
             this.submit()
         });
-        
     }
 
     loginAssert() {

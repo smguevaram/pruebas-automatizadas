@@ -4,7 +4,7 @@ import {
     Then,
     And,
   } from "@badeball/cypress-cucumber-preprocessor";
-  import postPage from '../../pages/PostPage';
+  import tagPage from '../../pages/TagPage';
   import loginPage from '../../pages/LoginPage';
 
   let credentials;
@@ -14,27 +14,27 @@ import {
   });
   
   When("Hace clic en la opción Tags del menú lateral y clic en el botón New tag", () => {
-    postPage.navigate()
+    tagPage.navigate()
   });
 
   When("Ingresa nombre {string}, {string} y {string}", (name, slug, description) => {
-    cy.fixture('Posts').then( post => {
-        postPage.enterName(post[name])
-        postPage.enterSlug(post[slug])
-        postPage.enterDescription(post[description])
+    cy.fixture('Tags').then( tag => {
+        tagPage.enterName(tag[name])
+        tagPage.enterSlug(tag[slug])
+        tagPage.enterDescription(tag[description])
     });
   });
 
   When("hace clic en el botón Save", () => {
-    postPage.save();
+    tagPage.save();
   });
 
-  When("hace click en la opción tags del menú lateral", () => {
-    postPage.goListPost()
+  When("hace click en la opción tags del menú lateral de Ghost", () => {
+    tagPage.goListTags()
   })
   
   Then("debería ver la nueva etiqueta con el slug {string} en el listado de etiquetas", (slug) => {
-    cy.fixture('Posts').then( post => {
-        postPage.createAssert(post[slug]);
+    cy.fixture('Tags').then( tag => {
+      tagPage.createAssert(tag[slug]);
     });
   });

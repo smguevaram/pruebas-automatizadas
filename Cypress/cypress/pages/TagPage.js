@@ -1,6 +1,6 @@
-class PostPage {
+class TagPage {
     navigate() {
-        this.goListPost()
+        this.goListTags()
         cy.get('[href="#/tags/new/"]').click()
         cy.wait(1000)
     }
@@ -27,11 +27,16 @@ class PostPage {
     }
 
     save() {
-        cy.get('.view-actions .gh-btn.ember-view').click()
+        cy.get('.view-actions .gh-btn').click()
     }
 
-    goListPost() {
-        cy.get('li [href="#/tags/"]').click()
+    goListTags() {
+        cy.get('li [href="#/tags/"]').click({force: true})
+        cy.wait(1000)
+    }
+
+    goTagDetail() {
+        cy.get('.gh-tags-list-item').then($elements => {cy.wrap($elements[1]).click();});
         cy.wait(1000)
     }
 
@@ -42,4 +47,4 @@ class PostPage {
     }
 }
 
-export default postPage = new PostPage();
+export default tagPage = new TagPage();
