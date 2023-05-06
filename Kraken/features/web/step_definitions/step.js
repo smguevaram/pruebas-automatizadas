@@ -33,22 +33,54 @@ When("I click in buttonName {string}", async function (buttonName) {
   }
 });
 
+When("I click in inputTitle {string}", async function (inputText) {
+  const elements = await this.driver.$$("textarea");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getAttribute('class');
+
+    if (elementText.toLowerCase() === 'gh-editor-title ember-text-area gh-input ember-view') {
+      await await elements[i].setValue(inputText);
+      break;
+    }
+  }
+});
+
+When("I click on title {string}", async function (title) {
+  const elements = await this.driver.$$(".gh-content-entry-title");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase() === title.toLowerCase()) {
+      await elements[i].click();
+      break;
+    }
+  }
+});
+
 When('I click anywhere on the page', async function() {
   let bodyElement = await this.driver.$('body');
   return await bodyElement.click();
 });
 
-When("I click in button {string}", async function (buttonName) {
+When("I click in button {string}", async function (button) {
   const elements = await this.driver.$$("button");
 
   for (let i = 0; i < elements.length; i++) {
     const elementText = await elements[i].getText();
 
-    if (elementText.toLowerCase() === buttonName.toLowerCase()) {
+    if (elementText.toLowerCase() === button.toLowerCase()) {
       await elements[i].click();
       break;
     }
   }
+});
+
+When("I click on menu publish", async function () {
+  const element= await this.driver.$(".gh-publishmenu.ember-view");
+      await element.click();    
+  
 });
 
 Then("I check that exist {string} in element's list", async function (name) {
@@ -67,6 +99,24 @@ Then("I check that exist {string} in element's list", async function (name) {
     throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
   }
 });
+
+Then("I check that exist {string} in post's or page's list", async function (name) {
+  const elements = await this.driver.$$(".gh-content-entry-title");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const titleRow = await elements[i].getText()
+
+    if (titleRow.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+  }
+});
+
 
 Then("I check that not exist {string} in element's list", async function (name) {
   const elements = await this.driver.$$(".ember-view");
