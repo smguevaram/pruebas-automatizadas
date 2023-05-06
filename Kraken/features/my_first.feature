@@ -46,7 +46,7 @@ Scenario: eliminar tag
   Then I check that not exist 'edicion de tag' in element's list
 
 @user4 @web
-Scenario:Crear una nueva página
+Scenario:Crear una nueva pagina
   Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
   And I wait for 10 seconds
   When I click in buttonName 'pages' 
@@ -62,9 +62,9 @@ Scenario:Crear una nueva página
   And I wait for 2 seconds
   And I click in buttonName 'pages'
   Then I check that exist 'My first page' in element's list  
-  And I send a signal to user 2 containing "done"
+  And I send a signal to user 5 containing "done"
 @user5 @web
-Scenario: editar tag
+Scenario: editar pagina
   Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
   And I wait for 10 seconds
   And I wait for a signal containing "done" for 15 seconds
@@ -77,7 +77,7 @@ Scenario: editar tag
   And I click in buttonName 'update'
   And I click in buttonName 'pages'
   Then I check that exist 'edicion de pagina' in element's list
-  And I send a signal to user 3 containing "done"
+  And I send a signal to user 6 containing "done"
 @user6 @web
 Scenario: eliminar pagina
   Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
@@ -126,7 +126,7 @@ Scenario: editar post
   Then I check that exist 'edicion de post' in element's list
   And I send a signal to user 9 containing "done"
 @user9 @web
-Scenario: eliminar pagina
+Scenario: eliminar post
   Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
   And I wait for a signal containing "done" for 15 seconds
   When I click in buttonName 'posts'
