@@ -40,6 +40,13 @@ class TagPage {
         cy.wait(1000)
     }
 
+    deleteTag () {
+        cy.contains('Delete tag').click();
+        cy.wait(1000)
+        cy.get('.modal-footer button:nth-child(2)').click();
+        cy.wait(1000)
+    }
+
     createAssert(slug) {
         cy.get('[href="#/tags/"]').click()
         cy.wait(1000)
