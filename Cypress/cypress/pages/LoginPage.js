@@ -3,7 +3,7 @@ class LoginPage {
     credentials;
 
     navigate() {
-        cy.visit('http://localhost:3001/ghost')
+        cy.visit('http://localhost:3002/ghost')
         cy.wait(1000)
     }
 
@@ -27,7 +27,7 @@ class LoginPage {
 
     defaultLogin() {
         this.credentials = cy.fixture('Users').then( credentials => {
-            cy.visit('http://localhost:3001/ghost')
+            cy.visit('http://localhost:3002/ghost')
             cy.wait(1000)
             this.enterUser(credentials.username);
             this.enterPassword(credentials.password)

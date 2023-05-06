@@ -37,6 +37,15 @@ class UserPage {
         cy.get("h2.gh-canvas-title").contains("Suspended")
     }
 
+    sendInvitation(email) {
+        cy.get(".view-actions button.gh-btn-green").click();
+        cy.wait(1000);
+        cy.get('.modal-body input[name="email"]')
+            .clear()
+            .type(email);
+        cy.get('.modal-footer button').click()
+    }
+
     deleteInvitation () {
         /* cy.contains('Delete tag').click();
         cy.wait(1000)
