@@ -117,6 +117,23 @@ Then("I check that exist {string} in post's or page's list", async function (nam
   }
 });
 
+Then("I check that not exist {string} in post's or page's list", async function (name) {
+  const elements = await this.driver.$$(".gh-content-entry-title");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const titleRow = await elements[i].getText()
+
+    if (titleRow.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+    }
+  }
+
+  if (elementFound) {
+    throw new Error(`Se encontró elemento con el nombre ${name}`);
+  }
+});
+
 
 Then("I check that not exist {string} in element's list", async function (name) {
   const elements = await this.driver.$$(".ember-view");
