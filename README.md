@@ -8,8 +8,16 @@
 [Resultados](https://github.com/smguevaram/pruebas-automatizadas/wiki/Pruebas-automatizadas-RIPuppet-y-monkey-cypress)
 
 ## Semana 5
-### Funcionalidades y escenarios de pruebas
- 1. 
+### Funcionalidades y descripción de escenarios de pruebas
+ 1. Administración de tag
+  - Crear nuevo tag: para crear un nuevo tag es necesario autenticarse, una vez autenticado en el menu izquierdo se ingresa a la sección tags, luego se da click al boton new tag, se crea el tag, se da click en el botón save y se verifica que el tag se ha creado exitosamente.
+  - Editar tag: para editar un tag es necesario autenticarse, una vez autenticado, en el menú izquierdo se ingresa a la sección tags, luego se da click en un tag ya creado, se edita, se da click en el boton save y se verifica que el tag se ha editado exitosamente.
+  - Eliminar tag: para eliminar un tag es necesario autenticarse, una vez autenticado, en el menú izquierdo se ingresa a la sección tags, luego se da click en un tag ya creado, se da click en el boton delete tag, luego click en el boton delete y se verifica que el tag se ha eliminado exitosamente.
+
+2. Administración de post
+- Crear un nuevo post: para crear un nuevo post es necesario autenticarse, una vez autenticado en el menu izquierdo se ingresa a la sección posts, luego se da click al boton new post, se crea el post, se da click en cualquier lugar de la página para que se cree el draft, se da click en el boton publish, luego se da click en el boton publish para confirmar la publicación y se verifica que el post se ha creado exitosamente.
+- Editar post: para editar un post es necesario autenticarse, una vez autenticado en el menu izquierdo se ingresa a la sección posts, luego se da click en un post ya creado, se edita, se da click en el boton update, luego se da click en el boton update para confirmar la edición y se verifica que el post se ha editado exitosamente.
+- Eliminar post: para eliminar un post es necesario autenticarse, una vez autenticado, en el menú izquierdo se ingresa a la sección posts, luego se da click en un post ya creado, se da click en la seccion Post settings, luego click en el boton delete y se verifica que el post se ha eliminado exitosamente.
 
 
 ### Pruebas con Kraken
