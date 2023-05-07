@@ -14,6 +14,7 @@ Given("Que el usuario se encuentre autenticado", () => {
 
 When("Hace clic en la opción Post del menú lateral y clic en el botón Drafts", () => {
   postPage.navigate()
+  postPage.newPost()
 });
 
 When("despues ingresa el Post Title {string}", (title) => {

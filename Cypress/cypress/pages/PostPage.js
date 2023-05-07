@@ -1,7 +1,8 @@
 class PostPage {
     navigate() {
+        cy.clearCookies()
         cy.get('li [href="#/posts/"]').click()
-        this.newPost()
+        
     }
 
     newPost() {
@@ -29,17 +30,41 @@ class PostPage {
         cy.wait(1000);
     }
 
+    returnPostDrafts(){
+      cy.contains('Drafts').click();
+      cy.wait(1000);
+  }
+
 
     createAssert(title){
         cy.contains(title);
     }
-/*    
-    enterDetail(detail) {
-        cy.get('[data-kg="editor"]')
-            .type(detail);
-        
-    }   
-*/
+
+
+    getPostByTitle(title) {
+        console.log('entre por aca maldicion')
+        console.log(title)
+        cy.contains('.gh-content-entry-title', title).click();
+      }
+    
+      updateTitle(title) {
+        cy.get('.gh-editor-title.ember-text-area[tabindex="1"]').clear().type(title);
+      }
+    
+      updateContent(content) {
+        cy.get('[data-kg="editor"]').clear().type(content);
+      }
+    
+      savePost() {
+        cy.contains('button', 'Save').click({ force: true });
+      }
+    
+      assertSaveSuccess() {
+        cy.get('.gh-notification-content').should('have.text', 'Post saved as draft.');
+      }
+
+
+
 
 }
 

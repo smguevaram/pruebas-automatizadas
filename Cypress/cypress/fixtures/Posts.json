@@ -1,5 +1,7 @@
 {
-  "title": "Mi primer Post",
-  "detail": "cypress a puesto a prueba mi paciencia y determinacion. no podra conmigo"
+  "title": "Mi Título de Post",
+  "detail": "cypress a puesto a prueba mi paciencia y determinacion. no podra conmigo",
+  "detail2": "se modifica por que se modifica",
+  "title2": "Mi Título de Post"
 
 }
