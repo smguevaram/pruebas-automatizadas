@@ -47,11 +47,11 @@
 
 
 ### Pruebas con Kraken
-Información importante para la ejecución:
+#### Información importante para la ejecución:
  -  Para la ejecución de las pruebas con kraken tenemos las funcionalidades distribuidas en diversos archivos .feature, los cuales va a encontrar en la carpeta myFeatures ().
  -  Es importante tener claro que para efectos de este tutorial se va a ejecutar por separado cada funcionalidad con sus respectivos escenarios de pruebas. 
 
-Para ejecutar los escenarios siga las siguientes instrucciones (se asume la previa instalación de kraken):
+#### Para ejecutar los escenarios siga las siguientes instrucciones (se asume la previa instalación de kraken):
  1. Instalar la versión 14.18.0 de node.
  2. En caso de no tener Ghost instalado, instalelo en su versión 3.41.1.
  3. Ingrese en la terminal el comando npm install.
@@ -64,7 +64,25 @@ Para ejecutar los escenarios siga las siguientes instrucciones (se asume la prev
 
 ### Pruebas con Cypress
 
-[Resultados](https://github.com/smguevaram/pruebas-automatizadas/wiki/Pruebas-automatizadas-RIPuppet-y-monkey-cypress)
+#### Requisitos
+
+1. Tener instalado node en su versión `v18.12.1`
+2. Tener cypress instalado en su versión `12.9.0`
+3. Tener la versión de ghost `3.41.1`
+
+#### Para ejecutar los escenarios es necesario seguir las siguientes instrucciones
+
+1. Por medio de la terminal ingresar a la carpeta `Cypress` con el comando `cd Cypress`
+2. Instalar dependencias ejecutando `npm i`
+3. En el archivo `cypress.config.js` cambiar la url y el puerto en el que se está ejecutando Ghost en su máquina local por medio del  atributo `baseUrl`.
+4. Agregar correo y contraseña del usuario administrador de Ghost en el archivo `Cypress/cypress/fixtures/Users.json` en las líneas 2 y 3 por medio de los atributos `username` y `password` respectivamente.
+5. Ejecutar cypress con el comando `cypress open`
+6. Agregar la carpeta `Cypress` como nuevo proyecto
+7. Seleccionar la opción E2E Testing
+
+8. Seleccionar el navegador `Chrome v112` y hacer clic en el botón para ejecutar test e2e en Chrome
+9. Hacer clic en los archivos `*.feature` para ejecutar cada escenario
+
 
 
 
