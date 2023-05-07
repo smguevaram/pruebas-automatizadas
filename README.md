@@ -63,6 +63,7 @@ Para ejecutar los escenarios siga las siguientes instrucciones (se asume la prev
  9. Repita los pasos 6, 7 y 8 para el resto de las funcionalidades encontradas en el archivo myFeatures.
 
 ### Pruebas con Cypress
+
 [Resultados](https://github.com/smguevaram/pruebas-automatizadas/wiki/Pruebas-automatizadas-RIPuppet-y-monkey-cypress)
 
 
