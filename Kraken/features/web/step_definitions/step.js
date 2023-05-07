@@ -49,30 +49,30 @@ When("I click in inputTitle {string}", async function (inputText) {
   }
 });
 
-When("I click in inputLabel {string} and type {string}", async function (inputLabel,type) {
+When(
+  "I click in inputLabel {string} and type {string}",
+  async function (inputLabel, type) {
+    if (inputLabel == "empty") inputLabel = "";
 
-  if(inputLabel=='empty') inputLabel=''
+    const elements = await this.driver.$$("input");
 
-  const elements = await this.driver.$$("input");
+    for (let i = 0; i < elements.length; i++) {
+      const elementText = await elements[i].getValue();
 
-  for (let i = 0; i < elements.length; i++) {
-    const elementText = await elements[i].getValue()
-
-    if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
-      await elements[i].setValue(type);
-      break;
+      if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
+        await elements[i].setValue(type);
+        break;
+      }
     }
   }
-  
-});
-
+);
 
 Then("I check that exist {string} in menu's list", async function (name) {
   const elements = await this.driver.$$("input");
   let elementFound = false;
 
   for (let i = 0; i < elements.length; i++) {
-    const elementText = await elements[i].getValue()
+    const elementText = await elements[i].getValue();
 
     if (elementText.toLowerCase() === name.toLowerCase()) {
       elementFound = true;
@@ -89,7 +89,7 @@ Then("I check that not exist {string} in menu's list", async function (name) {
   let elementFound = false;
 
   for (let i = 0; i < elements.length; i++) {
-    const elementText = await elements[i].getValue()
+    const elementText = await elements[i].getValue();
 
     if (elementText.toLowerCase() === name.toLowerCase()) {
       elementFound = true;
@@ -125,6 +125,8 @@ When("I click in button {string}", async function (button) {
   for (let i = 0; i < elements.length; i++) {
     const elementText = await elements[i].getText();
 
+    console.log(elementText);
+
     if (elementText.toLowerCase() === button.toLowerCase()) {
       await elements[i].click();
       break;
@@ -132,10 +134,36 @@ When("I click in button {string}", async function (button) {
   }
 });
 
+When("I click on user settings", async function () {
+  const element = await this.driver.$("button[class='gh-btn gh-btn-white gh-btn-icon only-has-icon user-actions-cog closed ember-view']");
+  await element.click();
+});
+
 When("I click on menu publish", async function () {
   const element = await this.driver.$(".gh-publishmenu.ember-view");
   await element.click();
 });
+
+Then("I check state {string} for user {string}", async function (state,user) {
+  const elements = await this.driver.$$("article[class='apps-card-app']");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].$("h3[class='apps-card-app-title']").getText();
+
+    if (elementText.toLowerCase() === user.toLowerCase()) {
+      const stateElement = await elements[i].$("div[class='apps-configured']").getText();
+      if(stateElement.toLowerCase() === state.toLowerCase())
+      elementFound = true;
+      break;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${user} y estado ${state}`);
+  }
+});
+
 
 Then("I check that exist {string} in element's list", async function (name) {
   const elements = await this.driver.$$(".ember-view");
@@ -146,7 +174,7 @@ Then("I check that exist {string} in element's list", async function (name) {
 
     if (elementText.toLowerCase() === name.toLowerCase()) {
       elementFound = true;
-      break
+      break;
     }
   }
 
@@ -166,7 +194,7 @@ Then(
 
       if (titleRow.toLowerCase() === name.toLowerCase()) {
         elementFound = true;
-        break
+        break;
       }
     }
 
@@ -187,13 +215,70 @@ Then(
 
       if (titleRow.toLowerCase() === name.toLowerCase()) {
         elementFound = true;
-        break
+        break;
       }
     }
 
     if (!elementFound) {
       throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
     }
+  }
+);
+
+Then(
+  "I click on user {string}",
+  async function (user) {
+    const elements = await this.driver.$$("h3[class='apps-card-app-title']");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
+
+      if (titleRow.toLowerCase() === user.toLowerCase()) {
+        await elements[i].click()
+        break;
+      }
+    }
+
+  }
+);
+
+Then(
+  "I check that not exist {string} in email's invitations",
+  async function (name) {
+    const elements = await this.driver.$$("h3[class='apps-card-app-title']");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
+
+      if (titleRow.toLowerCase() === name.toLowerCase()) {
+        elementFound = true;
+        break;
+      }
+    }
+
+    if (elementFound) {
+      throw new Error(`Se encontró elemento con el nombre ${name}`);
+    }
+  }
+);
+
+Then(
+  "I delete user invitation with email {string}",
+  async function (email) {
+    const elements = await this.driver.$$(".apps-card-app");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].$("h3[class='apps-card-app-title']").getText();
+
+      if (titleRow.toLowerCase() === email.toLowerCase()) {
+        await elements[i].$("a[class='apps-configured-action red-hover']").click()
+        break;
+      }
+    }
+
   }
 );
 
@@ -220,15 +305,17 @@ Then(
 Then(
   "I check that exist {string} in menu's list to delete",
   async function (name) {
-    const elements = await this.driver.$$("div[class='gh-blognav-item gh-blognav-item--sortable ember-view']");
+    const elements = await this.driver.$$(
+      "div[class='gh-blognav-item gh-blognav-item--sortable ember-view']"
+    );
     let elementFound = false;
 
     for (let i = 0; i < elements.length; i++) {
-      const titleRow = await elements[i].$('input').getValue()
+      const titleRow = await elements[i].$("input").getValue();
       console.log(titleRow);
 
       if (titleRow.toLowerCase() === name.toLowerCase()) {
-        await elements[i].$("button[class='gh-blognav-delete']").click()
+        await elements[i].$("button[class='gh-blognav-delete']").click();
         elementFound = true;
       }
     }
