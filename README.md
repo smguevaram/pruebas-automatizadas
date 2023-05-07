@@ -8,7 +8,8 @@
 [Resultados](https://github.com/smguevaram/pruebas-automatizadas/wiki/Pruebas-automatizadas-RIPuppet-y-monkey-cypress)
 
 ## Semana 5
-### Funcionalidades y escenarios
+### Funcionalidades y escenarios de pruebas
+
 
 ### Pruebas con Kraken
 Información importante para la ejecución:
