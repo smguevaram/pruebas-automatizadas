@@ -48,7 +48,6 @@
 Información importante para la ejecución:
  -  Para la ejecución de las pruebas con kraken tenemos las funcionalidades distribuidas en diversos archivos .feature, los cuales va a encontrar en la carpeta myFeatures ().
  -  Es importante tener claro que para efectos de este tutorial se va a ejecutar por separado cada funcionalidad con sus respectivos escenarios de pruebas. 
- -  Las funcionalidades se encuentran en el archivo myFeatures.
 
 Para ejecutar los escenarios siga las siguientes instrucciones (se asume la previa instalación de kraken):
  1. Instalar la versión 14.18.0 de node.
