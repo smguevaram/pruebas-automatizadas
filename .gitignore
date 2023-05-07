@@ -1,3 +1,4 @@
 Kraken/node_modules/
 Kraken/reports/
-
+Cypress/node_modules/
+.DS_Store

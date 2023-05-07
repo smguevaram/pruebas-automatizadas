@@ -1,0 +1,22 @@
+{
+  "name": "cypress-ghost",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^17.0.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@shelex/cypress-allure-plugin": "^2.38.5",
+    "cypress": "^12.11.0",
+    "esbuild": "^0.17.18"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "stepDefinitions": "cypress/e2e/step_definitions/*.js"
+  }
+}
