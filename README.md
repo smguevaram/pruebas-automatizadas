@@ -80,9 +80,14 @@
 6. Agregar la carpeta `Cypress` como nuevo proyecto
 7. Seleccionar la opción E2E Testing
 
+![image](https://user-images.githubusercontent.com/123912813/236685717-a989a1ac-6e9f-42fe-8114-5b09bfd75513.png)
+
 8. Seleccionar el navegador `Chrome v112` y hacer clic en el botón para ejecutar test e2e en Chrome
 9. Hacer clic en los archivos `*.feature` para ejecutar cada escenario
 
+![image](https://user-images.githubusercontent.com/123912813/236685741-083189a2-8b2a-4bcc-a8f1-e86004fd3080.png)
 
+
+### Click [aquí](https://github.com/smguevaram/pruebas-automatizadas/wiki) para ver pros y contras de Kraken y Cypress
 
 
