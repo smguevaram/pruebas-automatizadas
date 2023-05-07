@@ -11,7 +11,8 @@
 ### Funcionalidades y escenarios
 
 ### Pruebas con Kraken
-[Issues-RIPuppet](https://github.com/smguevaram/pruebas-automatizadas/issues/1)
+Para ejecutar los escenarios siga las siguientes instrucciones:
+* 
 
 ### Pruebas con Cypress
 [Resultados](https://github.com/smguevaram/pruebas-automatizadas/wiki/Pruebas-automatizadas-RIPuppet-y-monkey-cypress)
