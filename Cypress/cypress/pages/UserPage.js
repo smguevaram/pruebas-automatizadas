@@ -7,7 +7,7 @@ class UserPage {
     }
 
     save() {
-        cy.get('.view-actions .gh-btn').click()
+        cy.get('.view-actions .gh-btn:nth-child(2)').click()
     }
 
     goListUsers() {
