@@ -18,7 +18,7 @@ Scenario:Crear una nueva pagina
   And I wait for 1 seconds
   And I click in buttonName 'pages'
   And I wait for 2 seconds
-  Then I check that exist 'My first page1' in post's or page's list 
+  Then I check that exist 'My first page1' with state 'published' in post's or page's list 
   And I send a signal to user 5 containing "done"
 
 @user5 @web
@@ -35,7 +35,7 @@ Scenario: editar pagina
   And I wait for 1 seconds
   And I click in buttonName 'pages'
   And I wait for 1 seconds
-  Then I check that exist 'edicion de pagina' in post's or page's list
+  Then I check that exist 'edicion de pagina' with state 'published' in post's or page's list 
   And I send a signal to user 6 containing "done"
 
 @user6 @web
@@ -51,4 +51,20 @@ Scenario: eliminar pagina
   And I wait for 1 seconds
   And I click in button 'delete'
   And I wait for 2 seconds
-  Then I check that don't exist 'edicion de pagina' in element's list
+  Then I check that not exist 'edicion de post' in post's or page's list
+
+@user7 @web
+Scenario:Crear una nueva pagina como borrador
+  Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+  And I wait for 1 seconds
+  When I click in buttonName 'pages' 
+  And I wait for 1 seconds
+  And I click in buttonName 'new page' 
+  And I wait for 1 seconds
+  And I click in inputTitle 'My first page1 draft'
+  And I wait for 1 seconds 
+  And I click anywhere on the page
+  And I wait for 2 seconds
+  And I click in buttonName 'pages'
+  And I wait for 2 seconds
+  Then I check that exist 'My first page1 draft' with state 'published' in post's or page's list 

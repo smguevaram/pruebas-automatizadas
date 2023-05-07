@@ -50,6 +50,28 @@ When("I click in inputTitle {string}", async function (inputText) {
 });
 
 When(
+  "I look for a user with status {string}",
+  async function (status) {
+    const elements = await this.driver.$$("article[class='apps-card-app']");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const stateRow = await elements[i].$("div[class='apps-configured']").getText();
+
+      if (stateRow.toLowerCase() === status.toLowerCase()) {
+        await elements[i].click()
+        elementFound = true
+        break
+        }
+    }
+
+    if (!elementFound) {
+      throw new Error(`No se encontró ningún elemento con el status ${status}`);
+    }
+  }
+);
+
+When(
   "I click in inputLabel {string} and type {string}",
   async function (inputLabel, type) {
     if (inputLabel == "empty") inputLabel = "";
@@ -61,6 +83,23 @@ When(
 
       if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
         await elements[i].setValue(type);
+        break;
+      }
+    }
+  }
+);
+
+When(
+  "I type in input {string} and type {string}",
+  async function (input, type) {
+
+    const elements = await this.driver.$$("input");
+
+    for (let i = 0; i < elements.length; i++) {
+      const elementText = await elements[i].getAttribute("placeholder");
+
+      if (elementText.toLowerCase() === type.toLowerCase()) {
+        await elements[i].setValue(input);
         break;
       }
     }
@@ -184,23 +223,43 @@ Then("I check that exist {string} in element's list", async function (name) {
 });
 
 Then(
-  "I check that exist {string} in post's or page's list",
-  async function (name) {
-    const elements = await this.driver.$$(".gh-content-entry-title");
+  "I check that exist {string} with state {string} in post's or page's list",
+  async function (name,state) {
+    const elements = await this.driver.$$("li[class='gh-list-row gh-posts-list-item']");
     let elementFound = false;
 
     for (let i = 0; i < elements.length; i++) {
-      const titleRow = await elements[i].getText();
+      const titleRow = await elements[i].$("h3[class='gh-content-entry-title']").getText();
 
       if (titleRow.toLowerCase() === name.toLowerCase()) {
-        elementFound = true;
-        break;
+        const stateRow = await elements[i].$("div[class='flex items-center']").getText();
+        if(stateRow.toLowerCase() === state.toLowerCase()){
+          elementFound = true;
+          break;
+        }
       }
     }
 
     if (!elementFound) {
       throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
     }
+  }
+);
+
+Then(
+  "I change web attribute {string} for newTitle {string}",
+  async function (attribute,newTitle) {
+    const elements = await this.driver.$$("div[class='gh-setting-first']");
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].$("div[class='gh-setting-title']").getText();
+
+      if (titleRow.toLowerCase().includes(attribute.toLowerCase())) {
+        await elements[i].$("button").click();
+        await elements[i].$$('input')[0].setValue(newTitle);
+      }
+    }
+
   }
 );
 
@@ -344,6 +403,25 @@ Then(
       throw new Error(`Se encontró elemento con el nombre ${name}`);
     }
   }
+);
+
+Then(
+  "I check title page is newTitle {string}",
+  async function (newTitle) {
+    const element = await this.driver.$("div[class='gh-nav-menu-details-blog']");
+
+      const elementText = await element.getText();
+
+      if (elementText.toLowerCase() === newTitle.toLowerCase()) {
+        elementFound = true;
+      }
+
+      if (!elementFound) {
+        throw new Error(`El titulo es diferente al titulo comparado ${newTitle}`);
+      }
+    }
+
+    
 );
 
 Given(

@@ -66,3 +66,19 @@ Scenario:Quitar suspension de usuario
   And I click in buttonName 'staff'
   And I wait for 2 seconds
   Then I check state 'author' for user 'ghost'
+
+@user20 @web
+Scenario:Modificar nombre de usuario
+  Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+  And I wait for 1 seconds
+  When I click in buttonName 'staff' 
+  And I wait for 2 seconds
+  And I look for a user with status 'owner'
+  And I wait for 10 seconds
+  And I type in input 'test' and type 'full name'
+  And I click in button 'save'
+  And I wait for 1 seconds
+  And I click in buttonName 'tags'
+  And I click in buttonName 'staff'
+  And I wait for 1 seconds
+  Then I check state 'owner' for user 'test'
