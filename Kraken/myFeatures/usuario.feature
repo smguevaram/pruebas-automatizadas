@@ -16,11 +16,3 @@ Scenario:Invitar a un nuevo usuario
   And I wait for 1 seconds
   And I click in buttonName 'staff' 
   And I check that exist 'test@correo.com' in email's invitations
-
-
-
-  
-
- 
-
-

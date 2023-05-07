@@ -37,12 +37,67 @@ When("I click in inputTitle {string}", async function (inputText) {
   const elements = await this.driver.$$("textarea");
 
   for (let i = 0; i < elements.length; i++) {
-    const elementText = await elements[i].getAttribute('class');
+    const elementText = await elements[i].getAttribute("class");
 
-    if (elementText.toLowerCase() === 'gh-editor-title ember-text-area gh-input ember-view') {
-      await await elements[i].setValue(inputText);
+    if (
+      elementText.toLowerCase() ===
+      "gh-editor-title ember-text-area gh-input ember-view"
+    ) {
+      await elements[i].setValue(inputText);
       break;
     }
+  }
+});
+
+When("I click in inputLabel {string} and type {string}", async function (inputLabel,type) {
+
+  if(inputLabel=='empty') inputLabel=''
+
+  const elements = await this.driver.$$("input");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getValue()
+
+    if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
+      await elements[i].setValue(type);
+      break;
+    }
+  }
+  
+});
+
+
+Then("I check that exist {string} in menu's list", async function (name) {
+  const elements = await this.driver.$$("input");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getValue()
+
+    if (elementText.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+  }
+});
+
+Then("I check that not exist {string} in menu's list", async function (name) {
+  const elements = await this.driver.$$("input");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getValue()
+
+    if (elementText.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+    }
+  }
+
+  if (elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
   }
 });
 
@@ -59,8 +114,8 @@ When("I click on title {string}", async function (title) {
   }
 });
 
-When('I click anywhere on the page', async function() {
-  let bodyElement = await this.driver.$('body');
+When("I click anywhere on the page", async function () {
+  let bodyElement = await this.driver.$("body");
   return await bodyElement.click();
 });
 
@@ -78,9 +133,8 @@ When("I click in button {string}", async function (button) {
 });
 
 When("I click on menu publish", async function () {
-  const element= await this.driver.$(".gh-publishmenu.ember-view");
-      await element.click();    
-  
+  const element = await this.driver.$(".gh-publishmenu.ember-view");
+  await element.click();
 });
 
 Then("I check that exist {string} in element's list", async function (name) {
@@ -92,6 +146,7 @@ Then("I check that exist {string} in element's list", async function (name) {
 
     if (elementText.toLowerCase() === name.toLowerCase()) {
       elementFound = true;
+      break
     }
   }
 
@@ -100,61 +155,113 @@ Then("I check that exist {string} in element's list", async function (name) {
   }
 });
 
-Then("I check that exist {string} in post's or page's list", async function (name) {
-  const elements = await this.driver.$$(".gh-content-entry-title");
-  let elementFound = false;
+Then(
+  "I check that exist {string} in post's or page's list",
+  async function (name) {
+    const elements = await this.driver.$$(".gh-content-entry-title");
+    let elementFound = false;
 
-  for (let i = 0; i < elements.length; i++) {
-    const titleRow = await elements[i].getText()
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
 
-    if (titleRow.toLowerCase() === name.toLowerCase()) {
-      elementFound = true;
+      if (titleRow.toLowerCase() === name.toLowerCase()) {
+        elementFound = true;
+        break
+      }
+    }
+
+    if (!elementFound) {
+      throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
     }
   }
+);
 
-  if (!elementFound) {
-    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
-  }
-});
+Then(
+  "I check that exist {string} in email's invitations",
+  async function (name) {
+    const elements = await this.driver.$$("h3[class='apps-card-app-title']");
+    let elementFound = false;
 
-Then("I check that not exist {string} in post's or page's list", async function (name) {
-  const elements = await this.driver.$$(".gh-content-entry-title");
-  let elementFound = false;
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
 
-  for (let i = 0; i < elements.length; i++) {
-    const titleRow = await elements[i].getText()
+      if (titleRow.toLowerCase() === name.toLowerCase()) {
+        elementFound = true;
+        break
+      }
+    }
 
-    if (titleRow.toLowerCase() === name.toLowerCase()) {
-      elementFound = true;
+    if (!elementFound) {
+      throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
     }
   }
+);
 
-  if (elementFound) {
-    throw new Error(`Se encontró elemento con el nombre ${name}`);
-  }
-});
+Then(
+  "I check that not exist {string} in post's or page's list",
+  async function (name) {
+    const elements = await this.driver.$$(".gh-content-entry-title");
+    let elementFound = false;
 
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
 
-Then("I check that not exist {string} in element's list", async function (name) {
-  const elements = await this.driver.$$(".ember-view");
-  let elementFound = false;
+      if (titleRow.toLowerCase() === name.toLowerCase()) {
+        elementFound = true;
+      }
+    }
 
-  for (let i = 0; i < elements.length; i++) {
-    const elementText = await elements[i].getText();
-
-    if (elementText.toLowerCase() === name.toLowerCase()) {
-      elementFound = true;
+    if (elementFound) {
+      throw new Error(`Se encontró elemento con el nombre ${name}`);
     }
   }
+);
 
-  if (elementFound) {
-    throw new Error(`Se encontró elemento con el nombre ${name}`);
+Then(
+  "I check that exist {string} in menu's list to delete",
+  async function (name) {
+    const elements = await this.driver.$$("div[class='gh-blognav-item gh-blognav-item--sortable ember-view']");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].$('input').getValue()
+      console.log(titleRow);
+
+      if (titleRow.toLowerCase() === name.toLowerCase()) {
+        await elements[i].$("button[class='gh-blognav-delete']").click()
+        elementFound = true;
+      }
+    }
+
+    if (!elementFound) {
+      throw new Error(`Se encontró elemento con el nombre ${name}`);
+    }
   }
-});
+);
+
+Then(
+  "I check that not exist {string} in element's list",
+  async function (name) {
+    const elements = await this.driver.$$(".ember-view");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const elementText = await elements[i].getText();
+
+      if (elementText.toLowerCase() === name.toLowerCase()) {
+        elementFound = true;
+      }
+    }
+
+    if (elementFound) {
+      throw new Error(`Se encontró elemento con el nombre ${name}`);
+    }
+  }
+);
 
 Given(
   "I authenticate email {kraken-string} and password {kraken-string}",
-  async function (email,password) {
+  async function (email, password) {
     await this.driver.url("http://localhost:2368/ghost");
     let element = await this.driver.$("#ember8");
     await element.setValue(email);
