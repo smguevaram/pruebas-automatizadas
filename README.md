@@ -10,6 +10,7 @@
 ## Semana 5
 ### Funcionalidades y descripción de escenarios de pruebas
   1. Administración de tag
+
     - Crear nuevo tag: para crear un nuevo tag es necesario autenticarse, una vez autenticado en el menú izquierdo se ingresa a la sección tags, luego se da click al botón new tag, se crea el tag, se da click en el botón save y se verifica que el tag se ha creado exitosamente.
     - Editar tag: para editar un tag es necesario autenticarse, una vez autenticado, en el menú izquierdo se ingresa a la sección tags, luego se da click en un tag ya creado, se edita, se da click en el botón save y se verifica que el tag se ha editado exitosamente.
     - Eliminar tag: para eliminar un tag es necesario autenticarse, una vez autenticado, en el menú izquierdo se ingresa a la sección tags, luego se da click en un tag ya creado, se da click en el botón delete tag, luego click en el botón delete y se verifica que el tag se ha eliminado exitosamente.
