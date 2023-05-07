@@ -24,7 +24,7 @@ import {
   When("hace clic en el botón Save y va al blog", () => {
     navigationPage.save();
     cy.wait(1000)
-    cy.visit("http://localhost:3002/")
+    cy.visit("/")
   });
   
   Then("debería existir un nuevo botón con el label {string}", (newButtonLabel) => {

@@ -6,7 +6,7 @@ import {
   import loginPage from '../../pages/LoginPage';
 
   Given("Que el usuario accede al sitio web", () => {
-    cy.visit("/")
+    cy.visit("/ghost")
     cy.fixture('Users').then( credentialsReceived => {
       this.credentials = credentialsReceived;
     })
