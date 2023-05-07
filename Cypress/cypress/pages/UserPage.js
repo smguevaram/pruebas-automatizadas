@@ -7,7 +7,7 @@ class UserPage {
     }
 
     save() {
-        cy.get('.view-actions .gh-btn').click()
+        cy.get('.view-actions .gh-btn:nth-child(2)').click()
     }
 
     goListUsers() {
@@ -37,17 +37,27 @@ class UserPage {
         cy.get("h2.gh-canvas-title").contains("Suspended")
     }
 
-    deleteInvitation () {
-        /* cy.contains('Delete tag').click();
-        cy.wait(1000)
-        cy.get('.modal-footer button:nth-child(2)').click();
-        cy.wait(1000) */ 
+    sendInvitation(email) {
+        cy.get(".view-actions button.gh-btn-green").click();
+        cy.wait(1000);
+        cy.get('.modal-body input[name="email"]')
+            .clear()
+            .type(email);
+        cy.get('.modal-footer button').click()
     }
 
-    invitationAssert(name) {
-        /* cy.get('[href="#/staff/"]').click()
-        cy.wait(1000)
-        cy.contains(name) */
+    deleteInvitation () {
+        cy.fixture('Users').then( user => {
+            cy.contains(user.newUserEmail).get(".apps-grid-cell:nth-child(1) a.apps-configured-action:nth-child(1)").click()
+            cy.wait(1000)
+            cy.get('.gh-notification-close').click()
+        });
+    }
+
+    invitationAssert() {
+        cy.fixture('Users').then( user => {
+            cy.contains(user.newUserEmail).should('not.exist')
+        });
     }
 }
 
