@@ -22,7 +22,7 @@ import {
     navigationPage.deleteButton();
     navigationPage.save()
     cy.wait(1000)
-    cy.visit("http://localhost:3002/")
+    cy.visit("/")
   });
   
   Then("el botón eliminado ya no existe en la nevagación principal", () => {
