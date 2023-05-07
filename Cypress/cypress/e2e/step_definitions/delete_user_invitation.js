@@ -19,15 +19,9 @@ import {
   });
   
   When("hace clic en el enlace Revoke de una de las invitaciones", () => {
-    cy.fixture('Users').then( user => {
-        cy.contains(user.newUserEmail).get(".apps-grid-cell:nth-child(1) a.apps-configured-action:nth-child(1)").click()
-        cy.wait(1000)
-        cy.get('.gh-notification-close').click()
-    });
+    userPage.deleteInvitation();
   });
   
   Then("ya no visualiza la invitación en el listado", () => {
-    cy.fixture('Users').then( user => {
-        cy.contains(user.newUserEmail).should('not.exist')
-    });
+    userPage.invitationAssert();
   });
