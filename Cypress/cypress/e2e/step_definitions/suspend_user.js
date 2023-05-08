@@ -14,8 +14,8 @@ import {
     userPage.goListUsers();
   });
   
-  When("hace clic en un usuario activo", () => {
-    userPage.goUserDetail();
+  When("hace clic en un usuario activo no owner", () => {
+    userPage.goUserNotOwnerDetail();
   });
 
   When("Suspende el usuario", (editedName) => {

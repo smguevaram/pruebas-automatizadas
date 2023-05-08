@@ -7,7 +7,7 @@ class UserPage {
     }
 
     save() {
-        cy.get('.view-actions .gh-btn:nth-child(2)').click()
+        cy.get('.view-actions .gh-btn').last().click()
     }
 
     goListUsers() {
@@ -18,6 +18,12 @@ class UserPage {
     goUserDetail() {
         cy.get('.gh-active-users .apps-grid-cell').then($elements => {cy.wrap($elements[0]).click();});
         cy.wait(1000)
+    }
+
+    goUserNotOwnerDetail() {
+        cy.get('.gh-active-users .apps-grid-cell').then($elements => {
+            cy.wrap($elements).find('.gh-badge').not('.owner').last().click();
+        });
     }
 
     editAssert(editedName) {
