@@ -6,38 +6,28 @@ import {
 import postPage from '../../pages/PostPage';
 import loginPage from '../../pages/LoginPage';
 
-
-
-Given("Que el usuario se encuentre autenticado", () => {
+Given("Que el usuario se encuentre autenticado en Ghost", () => {
   loginPage.defaultLogin()
 });
 
-When("Hace clic en la opción Post del menú lateral y clic en el botón Drafts", () => {
+When("Hace clic en el botón de creación asociado a la opción post del menú lateral", () => {
+  postPage.goToCreatePost();
+});
+
+When("crea un post con titulo {string} y con el contenido {string}", (title, content) => {
+  cy.fixture('Posts').then( post => {
+    postPage.enterPostTitle(post[title])
+    postPage.enterPostContent(post[content])
+    postPage.publish()
+  });
+});
+
+When("regresa al lsitado de posts de Ghost", () => {
   postPage.navigate()
 });
 
-When("despues ingresa el Post Title {string}", (title) => {
-     cy.get('.gh-editor-title.ember-text-area[tabindex="1"]').type('Mi Título de Post');
-
+Then("el post con titulo {string} se encuentra visible en el listado", (title) => {
+  cy.fixture('Posts').then( post => {
+    postPage.assertTitle(post[title]);
   });
-
-  When("Ingresar el texto del post {string}", (detail) => {
-
-    cy.get('[data-kg="editor"]').type('Aqui el texto del horror');
-
-  });
-
-  When("click en publicar y publicar ahora", () => {
-
-    postPage.publish();
-   
-  });
-  When("despues click en post del costado izquierdo", () => {
-
-    postPage.returnPost();
-   
-  });
-
-  Then("validar la publicacion del post",(title) =>{
-    postPage.createAssert('Mi Título de Post')
-  });
+});

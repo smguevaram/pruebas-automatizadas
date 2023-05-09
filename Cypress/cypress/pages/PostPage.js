@@ -1,48 +1,52 @@
 class PostPage {
     navigate() {
-        cy.get('li [href="#/posts/"]').click()
-        this.newPost()
+        cy.get('div > a[href="#/posts/"]').click()
     }
 
-    newPost() {
-        cy.contains('New post').click()
+    goToCreatePost() {
+        cy.get('[href="#/editor/post/"]').first().click()
+    }
+    
+    enterPostTitle(title) {
+        cy.get('.gh-editor-title')
+        .clear()
+        .type(title);
+    }
+
+    enterPostContent(content) {
+        cy.get('.koenig-editor__editor')
+            .type(content);
+    }
+
+    publish() {
+        cy.get('.gh-publishmenu-trigger').click();
+        cy.wait(1000)
+        cy.get('.gh-publishmenu-button').click();
+        cy.wait(2000)
+    }
+
+    goToPostList() {
+        cy.get('[href="#/posts/"]').first().click({ multiple: true })
         cy.wait(1000)
     }
-    
-    enterPost(title) {
-        cy.get('.gh-editor-title.ember-text-area[tabindex="1"]')
-            .type(title);
-        
+
+    deletePost() {
+        cy.get(".post-settings").click()
+        cy.wait(1000)
+        cy.get('.settings-menu-delete-button').click()
+        cy.wait(1000)
+        cy.get('.modal-footer button').last().click()
+        cy.wait(2000)
     }
 
-    publish(){
-    cy.contains('Publish').click();
-    this.publishNow()
-    }
-    
-    publishNow(){
-        cy.get('button.gh-publishmenu-button').click();
+    assertDelete(title){
+        cy.contains(title).should('not.exist');
     }
 
-    returnPost(){
-        cy.contains('Posts').click();
-        cy.wait(1000);
-    }
-
-
-    createAssert(title){
+    assertTitle(title){
         cy.contains(title);
     }
-/*    
-    enterDetail(detail) {
-        cy.get('[data-kg="editor"]')
-            .type(detail);
-        
-    }   
-*/
-
 }
-
 
 export default postPage = new PostPage();
 

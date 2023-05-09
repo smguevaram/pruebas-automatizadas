@@ -1,5 +1,7 @@
 {
   "title": "Mi primer Post",
-  "detail": "cypress a puesto a prueba mi paciencia y determinacion. no podra conmigo"
-
+  "content": "Hola! Este es mi primer post",
+  "newTitle": "Este en el nuevo titulo",
+  "toDeleteTitle": "to_delete_post_title_4",
+  "toDeleteContent": "to_delete_post_title_4"
 }
