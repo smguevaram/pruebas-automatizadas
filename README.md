@@ -1,11 +1,13 @@
 # pruebas-automatizadas
-## Semana 4
-### Link Issues encontrados
-[Issues-RIPuppet](https://github.com/smguevaram/pruebas-automatizadas/issues/1)
 
-### Resultados, ventajas y desventajas
+## Integrantes
 
-[Resultados](https://github.com/smguevaram/pruebas-automatizadas/wiki/Pruebas-automatizadas-RIPuppet-y-monkey-cypress)
+|     Nombre           |Correo                    
+|----------------|-------------------------------|
+|Diego Becerra|d.becerraz@uniandes.edu.co |
+|Mateo Cáceres|m.caceresa23@uniandes.edu.co |
+|Sandra Guevara|sm.guevaram1@uniandes.edu.co|
+|Carlos Castillo|ca.castillo2@uniandes.edu.co |
 
 ## Semana 5
 ### Funcionalidades y descripción de escenarios de pruebas
