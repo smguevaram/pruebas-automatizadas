@@ -3,5 +3,7 @@
     "newButtonUrl": "https://google.com",
     "newDeleteButtonLabel": "Z New delete button label",
     "newDeleteButtonUrl": "https://gmail.com",
-    "editedButtonLabel": "New label 1"
+    "editedButtonLabel": "New label 1",
+    "newButtonLabelSN": "Label secondary navigation",
+    "newButtonUrlSN": "URL secondary navigation"
 }

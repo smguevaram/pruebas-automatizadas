@@ -11,6 +11,14 @@ class NavigationPage {
         return this;
     }
 
+    enterSecNavLabel(label) {
+        cy.get('#secondary-navigation div:nth-child(2) .gh-blognav-label input:nth-child(1)')
+            .last()
+            .clear()
+            .type(label, {force: true});
+        return this;
+    }
+
     editLabel(label) {
         cy.get('#settings-navigation > div:nth-child(1) .gh-blognav-label input:nth-child(1)')
         .first()
