@@ -2,5 +2,6 @@
     "newButtonLabel": "New button label",
     "newButtonUrl": "https://google.com",
     "newDeleteButtonLabel": "Z New delete button label",
-    "newDeleteButtonUrl": "https://gmail.com"
+    "newDeleteButtonUrl": "https://gmail.com",
+    "editedButtonLabel": "New label 1"
 }
