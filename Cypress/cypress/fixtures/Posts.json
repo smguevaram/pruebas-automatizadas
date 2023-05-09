@@ -3,5 +3,7 @@
   "content": "Hola! Este es mi primer post",
   "newTitle": "Este en el nuevo titulo",
   "toDeleteTitle": "to_delete_post_title_4",
-  "toDeleteContent": "to_delete_post_title_4"
+  "toDeleteContent": "to_delete_post_title_4",
+  "titleDraft": "title_draft_1",
+  "contentDraft": "content_draft_1"
 }

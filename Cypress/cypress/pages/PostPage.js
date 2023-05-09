@@ -39,6 +39,10 @@ class PostPage {
         cy.wait(2000)
     }
 
+    assertDraftTitle(title) {
+        cy.get(".gh-content-status-draft").first().parent().parent('.gh-post-list-status').siblings('a.gh-post-list-title').contains(title);
+    }
+
     assertDelete(title){
         cy.contains(title).should('not.exist');
     }
