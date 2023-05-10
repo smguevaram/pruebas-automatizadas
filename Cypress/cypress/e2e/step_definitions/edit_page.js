@@ -12,6 +12,7 @@ import {
   
   When("Ingresa a la sección de páginas", () => {
     pagePage.goToPageList()
+    cy.screenshot(`../../${Cypress.env('ghostVersion')}/page/edit_page`)
   });
 
   When("ingresa al detalle de una página, edita el titulo por {string} y hace clic en el botón de guardar cambios", (newTitle) => {
@@ -19,15 +20,18 @@ import {
     cy.fixture('Pages').then( page => {
         pagePage.enterPageTitle(page[newTitle])
         pagePage.publish()
+        cy.screenshot(`../../${Cypress.env('ghostVersion')}/page/edit_page`)
       });
   });
   
   When("regresa al listado de páginas de ghost", () => {
     pagePage.goToPageList()
+    cy.screenshot(`../../${Cypress.env('ghostVersion')}/page/edit_page`)
   });
   
   Then("la página con titulo {string} se encuentra visible", (newTitle) => {
     cy.fixture('Pages').then( page => {
       pagePage.assertTitle(page[newTitle]);
+      cy.screenshot(`../../${Cypress.env('ghostVersion')}/page/edit_page`)
     });
   });

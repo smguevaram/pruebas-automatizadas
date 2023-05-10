@@ -12,6 +12,7 @@ import {
   
   When("Hace clic en el botón de creación asociado a la opción post del menú lateral", () => {
     postPage.goToCreatePost();
+    cy.screenshot(`../../${Cypress.env('ghostVersion')}/post/create_draft_post`)
   });
   
   When("ingresa titulo {string} y contenido {string}, espera 2 segundos", (title, content) => {
@@ -19,15 +20,18 @@ import {
       postPage.enterPostTitle(post[title])
       postPage.enterPostContent(post[content])
       cy.wait(2000)
+      cy.screenshot(`../../${Cypress.env('ghostVersion')}/post/create_draft_post`)
     });
   });
   
   When("regresa al lsitado de posts de Ghost", () => {
     postPage.navigate()
+    cy.screenshot(`../../${Cypress.env('ghostVersion')}/post/create_draft_post`)
   });
   
   Then("el post con titulo {string} se encuentra visible en el listado con el status draft", (title) => {
     cy.fixture('Posts').then( post => {
       postPage.assertDraftTitle(post[title]);
+      cy.screenshot(`../../${Cypress.env('ghostVersion')}/post/create_draft_post`)
     });
   });
