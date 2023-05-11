@@ -4,21 +4,25 @@ const properties = require('../../../properties.json')
 
 When("I enter email {kraken-string}", async function (email) {
   let element = await this.driver.$("#ember8");
+  await takeScreenshot("Email",this.driver)
   return await element.setValue(email);
 });
 
 When("I enter password {kraken-string}", async function (password) {
   let element = await this.driver.$("#ember10");
+  await takeScreenshot("Password",this.driver)
   return await element.setValue(password);
 });
 
 When("I click next", async function () {
   let element = await this.driver.$("#ember12");
+  await takeScreenshot("Next",this.driver)
   return await element.click();
 });
 
 When("I enter contentInput {string}", async function (contentInput) {
   let element = await this.driver.$("#tag-name");
+  await takeScreenshot("Input",this.driver)
   return await element.setValue(contentInput);
 });
 
@@ -30,6 +34,7 @@ When("I click in buttonName {string}", async function (buttonName) {
 
     if (elementText.toLowerCase() === buttonName.toLowerCase()) {
       await elements[i].click();
+      await takeScreenshot("Button", this.driver);
       break;
     }
   }
@@ -46,6 +51,7 @@ When("I click in inputTitle {string}", async function (inputText) {
       "gh-editor-title ember-text-area gh-input ember-view"
     ) {
       await elements[i].setValue(inputText);
+      await takeScreenshot("InputTitle",this.driver)
       break;
     }
   }
@@ -70,7 +76,9 @@ When(
     if (!elementFound) {
       throw new Error(`No se encontró ningún elemento con el status ${status}`);
     }
+    await takeScreenshot("userStatus", this.driver);
   }
+  
 );
 
 When(
@@ -85,6 +93,7 @@ When(
 
       if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
         await elements[i].setValue(type);
+        await takeScreenshot("InputLabel", this.driver);
         break;
       }
     }
@@ -102,6 +111,7 @@ When(
 
       if (elementText.toLowerCase() === type.toLowerCase()) {
         await elements[i].setValue(input);
+        await takeScreenshot('InputType', this.driver);
         break;
       }
     }
@@ -150,6 +160,7 @@ When("I click on title {string}", async function (title) {
 
     if (elementText.toLowerCase() === title.toLowerCase()) {
       await elements[i].click();
+      await takeScreenshot("ClickedTitle", this.driver);
       break;
     }
   }
@@ -157,6 +168,7 @@ When("I click on title {string}", async function (title) {
 
 When("I click anywhere on the page", async function () {
   let bodyElement = await this.driver.$("body");
+  await takeScreenshot("ClickedAnywhere", this.driver);
   return await bodyElement.click();
 });
 
@@ -170,6 +182,7 @@ When("I click in button {string}", async function (button) {
 
     if (elementText.toLowerCase() === button.toLowerCase()) {
       await elements[i].click();
+      await takeScreenshot("ButtonClicked", this.driver);
       break;
     }
   }
@@ -178,11 +191,13 @@ When("I click in button {string}", async function (button) {
 When("I click on user settings", async function () {
   const element = await this.driver.$("button[class='gh-btn gh-btn-white gh-btn-icon only-has-icon user-actions-cog closed ember-view']");
   await element.click();
+  await takeScreenshot("SettingsClicked", this.driver);
 });
 
 When("I click on menu publish", async function () {
   const element = await this.driver.$(".gh-publishmenu.ember-view");
   await element.click();
+  await takeScreenshot("MenuClicked", this.driver);
 });
 
 Then("I check state {string} for user {string}", async function (state,user) {
@@ -245,6 +260,7 @@ Then(
     if (!elementFound) {
       throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
     }
+    
   }
 );
 
@@ -259,6 +275,7 @@ Then(
       if (titleRow.toLowerCase().includes(attribute.toLowerCase())) {
         await elements[i].$("button").click();
         await elements[i].$$('input')[0].setValue(newTitle);
+        await takeScreenshot("AttributeChange", this.driver);
       }
     }
 
@@ -297,6 +314,7 @@ Then(
 
       if (titleRow.toLowerCase() === user.toLowerCase()) {
         await elements[i].click()
+        await takeScreenshot("UserProfilePage", this.driver);
         break;
       }
     }
@@ -336,6 +354,7 @@ Then(
 
       if (titleRow.toLowerCase() === email.toLowerCase()) {
         await elements[i].$("a[class='apps-configured-action red-hover']").click()
+        await takeScreenshot("DeleteUserInvitation", this.driver);
         break;
       }
     }
