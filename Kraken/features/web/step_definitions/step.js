@@ -1,4 +1,6 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
+const fs = require("fs");
+const properties = require('../../../properties.json')
 
 When("I enter email {kraken-string}", async function (email) {
   let element = await this.driver.$("#ember8");
@@ -433,6 +435,14 @@ Given(
     let element1 = await this.driver.$("#ember10");
     await element1.setValue(password);
     let element3 = await this.driver.$("#ember12");
+    await takeScreenshot("Login",this.driver)
     return await element3.click();
   }
 );
+
+async function takeScreenshot(nameStep,driver){
+  if (!fs.existsSync(`./screenshots/${properties.VERSION}`)) {
+    fs.mkdirSync(`./screenshots/${properties.VERSION}`, { recursive: true });
+  }
+  await driver.saveScreenshot(`./screenshots/${properties.VERSION}/screenshot${nameStep}-${properties.VERSION}.png`);
+}
