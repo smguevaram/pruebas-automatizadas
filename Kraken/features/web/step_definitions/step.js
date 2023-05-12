@@ -46,6 +46,19 @@ When("I click in buttonName {string}", async function (buttonName) {
   }
 });
 
+When("I click in span {string}", async function (span) {
+  const elements = await this.driver.$$("span");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes(span.toLowerCase())) {
+      await elements[i].click();
+      break;
+    }
+  }
+});
+
 
 When("I click in buttonName settings {string}", async function (buttonName) {
   const elements = await this.driver.$$("a[class='ember-view gh-setting-group']");
@@ -234,8 +247,6 @@ When("I click in button {string}", async function (button) {
   for (let i = 0; i < elements.length; i++) {
     const elementText = await elements[i].getText();
 
-    console.log(elementText);
-
     if (elementText.toLowerCase().includes(button.toLowerCase())) {
       await elements[i].click();
       break;
@@ -243,8 +254,18 @@ When("I click in button {string}", async function (button) {
   }
 });
 
+When("I click on delete item", async function () {
+  const element = await this.driver.$("button[class='gh-btn gh-btn-red gh-btn-icon ember-view']");
+  await element.click();
+});
+
 When("I click on page settings", async function () {
   const element = await this.driver.$("a[class='ember-view gh-nav-bottom-tabicon']");
+  await element.click();
+});
+
+When("I click on page settings 2.0", async function () {
+  const element = await this.driver.$("button[class='settings-menu-toggle gh-btn gh-btn-editor gh-btn-icon icon-only gh-btn-action-icon']");
   await element.click();
 });
 
@@ -253,8 +274,18 @@ When("I click on user settings", async function () {
   await element.click();
 });
 
+When("I click on user settings 2.0", async function () {
+  const element = await this.driver.$("button[class='gh-btn gh-btn-icon icon-only gh-btn-action-icon closed ember-view']");
+  await element.click();
+});
+
 When("I click on menu publish", async function () {
   const element = await this.driver.$(".gh-publishmenu.ember-view");
+  await element.click();
+});
+
+When("I click on menu publish 2.0", async function () {
+  const element = await this.driver.$("button[class='gh-btn gh-btn-editor darkgrey gh-publish-trigger']");
   await element.click();
 });
 
@@ -331,6 +362,28 @@ Then(
           elementFound = true;
           break;
         }
+      }
+    }
+
+    if (!elementFound) {
+      throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+    }
+    
+  }
+);
+
+Then(
+  "I check that exist {string} post's or page's list",
+  async function (name) {
+    const elements = await this.driver.$$("h3[class='gh-content-entry-title']");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
+
+      if (titleRow.toLowerCase() === name.toLowerCase()) {
+          elementFound = true;
+          break;
       }
     }
 
