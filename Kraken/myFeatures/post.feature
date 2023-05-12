@@ -6,8 +6,10 @@ Scenario:Crear un nuevo post
   And I wait for 1 seconds
   When I click in buttonName 'posts' 
   And I wait for 1 seconds
+  And I take screenshot name 'Posts'
   And I click in buttonName 'new post' 
   And I wait for 1 seconds
+  And I take screenshot name 'NewPost'
   And I click in inputTitle 'My first post'
   And I wait for 1 seconds 
   And I click anywhere on the page
@@ -15,6 +17,7 @@ Scenario:Crear un nuevo post
   And I click on menu publish
   And I wait for 2 seconds
   And I click in button 'publish'
+  And I take screenshot name 'PublishPost'
   And I wait for 1 seconds
   And I click in buttonName 'posts'
   And I wait for 2 seconds
@@ -34,6 +37,7 @@ Scenario: editar post
   And I wait for 2 seconds
   And I click in button 'update'
   And I wait for 1 seconds
+  And I take screenshot name 'UpdatePost'
   And I click in buttonName 'posts'
   And I wait for 1 seconds
   Then I check that exist 'edicion de post' with state 'published' in post's or page's list 
@@ -47,10 +51,11 @@ Scenario: eliminar post
   When I click in buttonName 'posts'
   And I wait for 3 seconds
   And I click on title 'edicion de post'
-  And I wait for 1 second
+  And I wait for 1 seconds
   And I click in button 'delete page'
   And I wait for 1 seconds
   And I click in button 'delete'
+  And I take screenshot name 'DeletePost'
   And I wait for 2 seconds
   Then I check that not exist 'edicion de post' in post's or page's list
 
@@ -67,6 +72,7 @@ Scenario:Crear una un post como borrador
   And I wait for 1 seconds 
   And I click anywhere on the page
   And I wait for 2 seconds
-  And I click in buttonName 'post'
+  And I click in buttonName 'posts'
   And I wait for 2 seconds
-  Then I check that exist 'My first post1 draft' with state 'published' in post's or page's list 
+  And I take screenshot name 'PostsTable'
+  Then I check that exist 'My first post1 draft' with state 'draft' in post's or page's list 

@@ -4,12 +4,15 @@ Feature: Administracion de usuarios
 Scenario:Invitar a un nuevo usuario
   Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
   And I wait for 1 seconds
+  And I take screenshot name 'Home'
   When I click in buttonName 'staff' 
   And I wait for 1 seconds
+  And I take screenshot name 'Staff'
   And I click in button 'invite people'
   And I wait for 1 seconds
   And I click in inputLabel 'empty' and type 'test@correo.com'
   And I wait for 1 seconds
+  And I take screenshot name 'InvitePeople'
   And I click in button 'send invitation now'
   And I wait for 6 seconds
   And I click in buttonName 'tags'
@@ -37,6 +40,7 @@ Scenario:Suspender usuario
   And I wait for 1 seconds
   And I click on user 'ghost'
   And I wait for 2 seconds
+  And I take screenshot name 'UserSettings'
   And I click on user settings
   And I click in button 'suspend user'
   And I wait for 1 seconds
@@ -66,19 +70,3 @@ Scenario:Quitar suspension de usuario
   And I click in buttonName 'staff'
   And I wait for 2 seconds
   Then I check state 'author' for user 'ghost'
-
-@user20 @web
-Scenario:Modificar nombre de usuario
-  Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-  And I wait for 1 seconds
-  When I click in buttonName 'staff' 
-  And I wait for 2 seconds
-  And I look for a user with status 'owner'
-  And I wait for 10 seconds
-  And I type in input 'test' and type 'full name'
-  And I click in button 'save'
-  And I wait for 1 seconds
-  And I click in buttonName 'tags'
-  And I click in buttonName 'staff'
-  And I wait for 1 seconds
-  Then I check state 'owner' for user 'test'

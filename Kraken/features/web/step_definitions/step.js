@@ -17,6 +17,17 @@ When("I click next", async function () {
   return await element.click();
 });
 
+When("I enter email {kraken-string} 2.0", async function (email) {
+  let element = await this.driver.$("#identification");
+  return await element.setValue(email);
+});
+
+When("I enter password {kraken-string} 2.0", async function (password) {
+  let element = await this.driver.$("#password");
+  return await element.setValue(password);
+});
+
+
 When("I enter contentInput {string}", async function (contentInput) {
   let element = await this.driver.$("#tag-name");
   return await element.setValue(contentInput);
@@ -28,8 +39,35 @@ When("I click in buttonName {string}", async function (buttonName) {
   for (let i = 0; i < elements.length; i++) {
     const elementText = await elements[i].getText();
 
-    if (elementText.toLowerCase() === buttonName.toLowerCase()) {
+    if (elementText.toLowerCase().includes(buttonName.toLowerCase())) {
       await elements[i].click();
+      break;
+    }
+  }
+});
+
+
+When("I click in buttonName settings {string}", async function (buttonName) {
+  const elements = await this.driver.$$("a[class='ember-view gh-setting-group']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes(buttonName.toLowerCase())) {
+      await elements[i].click();
+      break;
+    }
+  }
+});
+
+When("I click in expand for title {string}", async function (title) {
+  const elements = await this.driver.$$("div[class='gh-expandable-header']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].$("h4").getText();
+
+    if (elementText.toLowerCase().includes(title.toLowerCase())) {
+      await elements[i].$("button").click();
       break;
     }
   }
@@ -75,6 +113,24 @@ When(
 );
 
 When(
+  "I look for a user created",
+  async function () {
+    const elements = await this.driver.$$("figure")
+    let elementFound = false;
+
+    if(elements.length>0){
+      await this.driver.$$("figure")[0].click();
+      elementFound=true
+    }
+
+    if (!elementFound) {
+      throw new Error(`No se encontró ningún elemento con el status ${status}`);
+    }
+  }
+  
+);
+
+When(
   "I click in inputLabel {string} and type {string}",
   async function (inputLabel, type) {
     if (inputLabel == "empty") inputLabel = "";
@@ -108,6 +164,17 @@ When(
     }
   }
 );
+
+When(
+  "I type in input {string} and id {string}",
+  async function (input, id) {
+
+    const element = await this.driver.$(`input[id=${id}]`);
+
+    await element.setValue(input)
+  }
+);
+
 
 Then("I check that exist {string} in menu's list", async function (name) {
   const elements = await this.driver.$$("input");
@@ -169,11 +236,16 @@ When("I click in button {string}", async function (button) {
 
     console.log(elementText);
 
-    if (elementText.toLowerCase() === button.toLowerCase()) {
+    if (elementText.toLowerCase().includes(button.toLowerCase())) {
       await elements[i].click();
       break;
     }
   }
+});
+
+When("I click on page settings", async function () {
+  const element = await this.driver.$("a[class='ember-view gh-nav-bottom-tabicon']");
+  await element.click();
 });
 
 When("I click on user settings", async function () {
@@ -204,6 +276,25 @@ Then("I check state {string} for user {string}", async function (state,user) {
   if (!elementFound) {
     throw new Error(`No se encontró ningún elemento con el nombre ${user} y estado ${state}`);
   }
+});
+
+Then("I check for user name {string}", async function (name) {
+  const elements = await this.driver.$$("h3[class='ma0 pa0 gh-members-list-name ']");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+      break;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+  }
+
 });
 
 
@@ -266,6 +357,25 @@ Then(
 
   }
 );
+
+Then(
+  "I change web attribute {string} for newTitle {string} 2.0",
+  async function (attribute,newTitle) {
+    const elements = await this.driver.$$("input[class='ember-text-field gh-input ember-view']");
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getValue();
+
+      if (titleRow.toLowerCase().includes(attribute.toLowerCase())) {
+        await elements[i].setValue(newTitle);
+        break;
+      }
+    }
+
+  }
+);
+
+
 
 Then(
   "I check that exist {string} in email's invitations",
@@ -428,6 +538,25 @@ Then(
     
 );
 
+Then(
+  "I check title page is newTitle {string} 2.0",
+  async function (newTitle) {
+    const element = await this.driver.$("div[class='gh-nav-menu-details-sitetitle']");
+
+      const elementText = await element.getText();
+
+      if (elementText.toLowerCase() === newTitle.toLowerCase()) {
+        elementFound = true;
+      }
+
+      if (!elementFound) {
+        throw new Error(`El titulo es diferente al titulo comparado ${newTitle}`);
+      }
+    }
+
+    
+);
+
 Given(
   "I authenticate email {kraken-string} and password {kraken-string}",
   async function (email, password) {
@@ -441,9 +570,61 @@ Given(
   }
 );
 
-async function takeScreenshot(nameStep,driver){
+Given(
+  "I authenticate email {kraken-string} and password {kraken-string} 2.0",
+  async function (email, password) {
+    await this.driver.url("http://localhost:2368/ghost");
+    let element = await this.driver.$("#identification");
+    await element.setValue(email);
+    let element1 = await this.driver.$("#password");
+    await element1.setValue(password);
+    let element3 = await this.driver.$("#ember5");
+    return await element3.click();
+  }
+);
+
+When(
+  "I take screenshot name {string}",
+async function (name){
   if (!fs.existsSync(`./screenshots/${properties.VERSION}`)) {
     fs.mkdirSync(`./screenshots/${properties.VERSION}`, { recursive: true });
   }
-  await driver.saveScreenshot(`./screenshots/${properties.VERSION}/screenshot${nameStep}-${properties.VERSION}.png`);
+  return await this.driver.saveScreenshot(`./screenshots/${properties.VERSION}/screenshot-${name}-${properties.VERSION}.png`);
 }
+)
+
+Then(
+  "I check logged",
+  async function () {
+    const element = await this.driver.$$("span[class='gh-user-email']");
+    elementFound = false
+
+      if (element.length>0) {
+        elementFound = true;
+      }
+
+      if (!elementFound) {
+        throw new Error(`No se inicio sesion`);
+      }
+    }
+  
+);
+
+Then(
+  "I check logged 2.0",
+  async function () {
+    const element = await this.driver.$$("div[class='flex-auto flex items-center']");
+    elementFound = false
+
+      if (element.length>0) {
+        await element[0].click()
+          elementFound = true
+        
+      }
+
+      if (!elementFound) {
+        throw new Error(`No se inicio sesion`);
+      }
+    }
+  
+);
