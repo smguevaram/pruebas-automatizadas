@@ -17,12 +17,15 @@ import {
     loginPage.enterUser(this.credentials[username])
     loginPage.enterPassword(this.credentials[password])
     loginPage.submit()
+    //cy.screenshot(`../../${Cypress.env('ghostVersion')}/login/loginpage`)
   });
 
   Then("El usuario ingresa a la sección de administración", () => {
     loginPage.loginAssert()
+    //cy.screenshot(`../../${Cypress.env('ghostVersion')}/login/loginpage`)
   });
   
   Then("The error message {string} is displayed", (errorMessage) => {
     loginPage.elements.errorMessage().should("have.text", errorMessage);
+    //cy.screenshot(`../../${Cypress.env('ghostVersion')}/login/loginpage`)
   });
