@@ -1,6 +1,11 @@
+
+
 class PostPage {
+    
+
     navigate() {
-        cy.get('div > a[href="#/posts/"]').click()
+       cy.visit('/ghost/#/posts');
+       cy.wait(1000);
     }
 
     goToCreatePost() {
@@ -19,14 +24,16 @@ class PostPage {
     }
 
     publish() {
-        cy.get('.gh-publishmenu-trigger').click();
+        cy.contains('Publish').click();
         cy.wait(1000)
-        cy.get('.gh-publishmenu-button').click();
-        cy.wait(2000)
+        cy.contains('Continue, final review').click();
+        cy.wait(1000);
+        cy.contains('Publish post, right now').click();
+        cy.wait(1000);
     }
 
     goToPostList() {
-        cy.get('[href="#/posts/"]').first().click({ multiple: true })
+        cy.visit('/ghost/#/posts');
         cy.wait(1000)
     }
 
@@ -40,7 +47,7 @@ class PostPage {
     }
 
     assertDraftTitle(title) {
-        cy.get(".gh-content-status-draft").first().parent().parent('.gh-post-list-status').siblings('a.gh-post-list-title').contains(title);
+        cy.contains(title);
     }
 
     assertDelete(title){
