@@ -9,6 +9,18 @@
 |Sandra Guevara|sm.guevaram1@uniandes.edu.co|
 |Carlos Castillo|ca.castillo2@uniandes.edu.co |
 
+## Semana 6
+### Funcionalidades y descripción de escenarios de pruebas
+Las funcionalidades están descritas en el literal de la semana 5
+Es importante tener claro que para la ejecución de las pruebas se adaptaron las funciones de administración de usuarios, de posts y de configuraciones
+
+### Pruebas con Kraken y ResembleJS
+#### Para ejecutar los escenarios siga las siguientes instrucciones (se asume la previa instalación de kraken):
+ 1. Para la ejecución de las pruebas siga los mismos pasos de la semana 5.
+ 2. Para poder ejecutar las pruebas VRT a traves de Resemble, se debe ubicar en la carpeta resemble con el comando cd y una vez alli debe ejecutar el siguiente comando: "node index.js"
+
+
+
 ## Semana 5
 ### Funcionalidades y descripción de escenarios de pruebas
 
