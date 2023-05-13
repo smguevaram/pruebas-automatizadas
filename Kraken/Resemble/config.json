@@ -1,0 +1,24 @@
+{
+    "url":"http://localhost:2368/ghost/",
+    "browsers":["chromium", "webkit", "firefox"],
+    "testList":["ChangeTitle","DeletePost","GeneralSettings","Home","InvitePeople","Login","NewPost","Posts","PostsTable","PublishPost","Staff","UpdatePost","UserSettings"],
+    "oldestVersion":"3.41.1",
+    "latestVersion":"latest",
+    "options":{
+        "output": {
+            "errorColor": {
+                "red": 255,
+                "green": 0,
+                "blue": 255
+            },
+            "errorType": "movement",
+            "largeImageThreshold": 1200,
+            "useCrossOrigin": false,
+            "outputDiff": true
+        },
+        "scaleToSameSize": true,
+        "ignore": "antialiasing"
+    },
+    "viewportHeight":600, 
+    "viewportWidth":800
+}

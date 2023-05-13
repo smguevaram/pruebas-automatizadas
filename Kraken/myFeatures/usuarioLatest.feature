@@ -3,7 +3,7 @@ Feature: Administracion de usuarios
 @user13 @web
 Scenario:Invitar a un nuevo usuario
   Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 2.0
-  And I wait for 1 seconds
+  And I wait for 3 seconds
   And I take screenshot name 'Home'
   When I click in buttonName 'members' 
   And I wait for 1 seconds
