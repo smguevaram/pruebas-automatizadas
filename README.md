@@ -10,6 +10,9 @@
 |Carlos Castillo|ca.castillo2@uniandes.edu.co |
 
 ## Semana 6
+
+[Video semana 6](https://drive.google.com/file/d/1bDzpwcza7pVRmO0D6RjgyzcNWrO8dufq/view?usp=share_link)
+
 ### Funcionalidades y descripción de escenarios de pruebas
 Las funcionalidades están descritas en el literal de la semana 5.
 
