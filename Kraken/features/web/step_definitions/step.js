@@ -1,6 +1,7 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const fs = require("fs");
 const properties = require('../../../properties.json')
+const info_tags = require('../../mocks/TAGS_TRUE_MOCK.json')
 
 When("I enter email {kraken-string}", async function (email) {
   let element = await this.driver.$("#ember8");
@@ -33,7 +34,45 @@ When("I enter contentInput {string}", async function (contentInput) {
   return await element.setValue(contentInput);
 });
 
+When("I enter slug {string}", async function (contentInput) {
+  let element = await this.driver.$("#tag-slug");
+  return await element.setValue(contentInput);
+});
+
+When("I enter description {string}", async function (contentInput) {
+  let element = await this.driver.$("#tag-description");
+  return await element.setValue(contentInput);
+});
+
+Then("I check description is longer", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('longer than 500 characters')) {
+      return
+    }
+  }
+
+  throw new Error('No esta fallando cuando se tiene mas de 500 caracteres')
+  
+});
+
 When("I click in buttonName {string}", async function (buttonName) {
+  const elements = await this.driver.$$(".ember-view");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase()==buttonName.toLowerCase()) {
+      await elements[i].click();
+      break;
+    }
+  }
+});
+
+When("I click in buttonName {string} 2.0", async function (buttonName) {
   const elements = await this.driver.$$(".ember-view");
 
   for (let i = 0; i < elements.length; i++) {
@@ -331,6 +370,24 @@ Then("I check for user name {string}", async function (name) {
 
 Then("I check that exist {string} in element's list", async function (name) {
   const elements = await this.driver.$$(".ember-view");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+      break;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+  }
+});
+
+Then("I check that exist {string} in tag's list", async function (name) {
+  const elements = await this.driver.$$("h3[class='gh-tag-list-name']");
   let elementFound = false;
 
   for (let i = 0; i < elements.length; i++) {
