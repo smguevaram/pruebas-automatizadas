@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let rawdata = fs.readFileSync("mocks/TAGS_MOCK.json");
+let rawdata = fs.readFileSync("mocks/NAUGHTY_MOCK.json");
 let datapool = JSON.parse(rawdata);
 
 
@@ -21,14 +21,14 @@ function generateScenerios() {
       And I wait for 2 seconds
       And I click in buttonName 'new tag'
       And I wait for 2 seconds
-      And I enter contentInput '${tag.tag_name}'
+      And I enter contentInput '${tag.random_string}'
       And I click in buttonName 'save'
       And I wait for 2 seconds
       And I click in buttonName 'tags' 
-      Then I check that exist '${tag.tag_name}' in tag's list
+      Then I check that exist '${tag.random_string}' in tag's list
       And I send a signal to user 2 containing "done"
 `;
-    fs.writeFileSync("../poolApriori/datapool-crearTag.feature", datapoolTag);
+    fs.writeFileSync("../poolApriori/datapool-crearTagSpecial.feature", datapoolTag);
 
     tagInfo = generarNumeroAleatorio(0, datapool.length-1);
     tag = datapool[tagInfo];
@@ -41,15 +41,15 @@ function generateScenerios() {
       And I wait for 2 seconds
       And I click in buttonName 'new tag'
       And I wait for 2 seconds
-      And I enter contentInput '${tag.tag_name}'
-      And I enter slug '${tag.slug}'
+      And I enter contentInput '${tag.random_string}'
+      And I enter slug '${tag.random_string}'
       And I click in buttonName 'save'
       And I wait for 2 seconds
       And I click in buttonName 'tags' 
-      Then I check that exist '${tag.tag_name}' in tag's list
+      Then I check that exist '${tag.random_string}' in tag's list
       And I send a signal to user 2 containing "done"
 `;
-    fs.writeFileSync("../poolApriori/datapool-crearTagSlug.feature", datapoolTag);
+    fs.writeFileSync("../poolApriori/datapool-crearTagSlugSpecial.feature", datapoolTag);
 
     tagInfo = generarNumeroAleatorio(0, datapool.length-1);
     tag = datapool[tagInfo];
@@ -62,15 +62,15 @@ function generateScenerios() {
       And I wait for 2 seconds
       And I click in buttonName 'new tag'
       And I wait for 2 seconds
-      And I enter contentInput '${tag.tag_name}'
-      And I enter description '${tag.descriptionSc}'
+      And I enter contentInput '${tag.random_string}'
+      And I enter description '${tag.random_string}'
       And I click in buttonName 'save'
       And I wait for 2 seconds
       And I click in buttonName 'tags' 
-      Then I check that exist '${tag.tag_name}' in tag's list
+      Then I check that exist '${tag.random_string}' in tag's list
       And I send a signal to user 2 containing "done"
 `;
-    fs.writeFileSync("../poolApriori/datapool-crearTagDescriptionSc.feature", datapoolTag);
+    fs.writeFileSync("../poolApriori/datapool-crearTagDescriptionScSpecial.feature", datapoolTag);
 
     tagInfo = generarNumeroAleatorio(0, datapool.length-1);
     tag = datapool[tagInfo];
@@ -83,15 +83,15 @@ function generateScenerios() {
       And I wait for 2 seconds
       And I click in buttonName 'new tag'
       And I wait for 2 seconds
-      And I enter contentInput '${tag.tag_name}'
-      And I enter description '${tag.descriptionBorder}'
+      And I enter contentInput '${tag.random_string}'
+      And I enter description '${tag.random_string}'
       And I click in buttonName 'save'
       And I wait for 2 seconds
       And I click in buttonName 'tags' 
-      Then I check that exist '${tag.tag_name}' in tag's list
+      Then I check that exist '${tag.random_string}' in tag's list
       And I send a signal to user 2 containing "done"
 `;
-    fs.writeFileSync("../poolApriori/datapool-crearTagDescriptionBorder.feature", datapoolTag);
+    fs.writeFileSync("../poolApriori/datapool-crearTagDescriptionBorderSpecial.feature", datapoolTag);
 
     tagInfo = generarNumeroAleatorio(0, datapool.length-1);
     tag = datapool[tagInfo];
@@ -104,35 +104,15 @@ function generateScenerios() {
       And I wait for 2 seconds
       And I click in buttonName 'new tag'
       And I wait for 2 seconds
-      And I enter contentInput '${tag.tag_name}'
-      And I enter description '${tag.descriptionFl}'
+      And I enter contentInput '${tag.random_string}'
+      And I enter description '${tag.random_string}'
       And I click in buttonName 'save'
       And I wait for 2 seconds
       And I click in buttonName 'tags' 
       Then I check description is longer
       And I send a signal to user 2 containing "done"
 `;
-    fs.writeFileSync("../poolApriori/datapool-crearTagDescriptionFl.feature", datapoolTag);
-
-    tagInfo = generarNumeroAleatorio(0, datapool.length-1);
-    tag = datapool[tagInfo];
-    datapoolTag = `Feature: Administracion de tag
-    @user1 @web
-    Scenario:Crear con un nombre vacio
-      Given I authenticate email "<USERNAME>" and password "<PASSWORD>"
-      And I wait for 2 seconds
-      When I click in buttonName 'tags'
-      And I wait for 2 seconds
-      And I click in buttonName 'new tag'
-      And I wait for 2 seconds
-      And I enter contentInput ''
-      And I enter description '${tag.descriptionSc}'
-      And I click in buttonName 'save'
-      And I wait for 1 seconds
-      Then I check name tag is not empty
-
-`;
-    fs.writeFileSync("../poolApriori/datapool-crearTagNombreVacio.feature", datapoolTag);
+    fs.writeFileSync("../poolApriori/datapool-crearTagDescriptionFlSpecial.feature", datapoolTag);
 
     console.log('Scenerios created');
 }

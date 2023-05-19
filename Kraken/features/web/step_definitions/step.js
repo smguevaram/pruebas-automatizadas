@@ -1,7 +1,7 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const fs = require("fs");
 const properties = require('../../../properties.json')
-const info_tags = require('../../mocks/TAGS_TRUE_MOCK.json')
+
 
 When("I enter email {kraken-string}", async function (email) {
   let element = await this.driver.$("#ember8");
@@ -55,7 +55,22 @@ Then("I check description is longer", async function () {
     }
   }
 
-  throw new Error('No esta fallando cuando se tiene mas de 500 caracteres')
+  throw new Error('There is not a restriction when description is longer than 500 characters')
+  
+});
+
+Then("I check name tag is not empty", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('specify a name for the tag')) {
+      return
+    }
+  }
+
+  throw new Error('A tag was created with an empty name')
   
 });
 
@@ -462,6 +477,22 @@ Then(
       if (titleRow.toLowerCase().includes(attribute.toLowerCase())) {
         await elements[i].$("button").click();
         await elements[i].$$('input')[0].setValue(newTitle);
+      }
+    }
+
+  }
+);
+
+When(
+  "I change web attribute {string} for newDescription {string}",
+  async function (attribute,newDescription) {
+    const elements = await this.driver.$$("div[class='gh-setting-first']");
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].$("div[class='gh-setting-title']").getText();
+
+      if (titleRow.toLowerCase().includes(attribute.toLowerCase())) {
+        await elements[i].$$('input')[1].setValue(newDescription);
       }
     }
 
