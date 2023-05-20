@@ -8,6 +8,11 @@ function generarNumeroAleatorio(minimo, maximo) {
 }
 
 function generateScenerios() {
+
+  if (!fs.existsSync(`../poolApriori/`)) {
+    fs.mkdirSync(`../poolApriori/`, { recursive: true });
+  }
+
   let settingsInfo = generarNumeroAleatorio(0, datapool.length - 1);
   let settings = datapool[settingsInfo];
   let datapoolSettings = `Feature: Administracion de configuracion

@@ -10,6 +10,10 @@ function generarNumeroAleatorio(minimo, maximo) {
 
 function generateScenerios() {
 
+  if (!fs.existsSync(`../poolApriori/`)) {
+    fs.mkdirSync(`../poolApriori/`, { recursive: true });
+  }
+
     let tagInfo = generarNumeroAleatorio(0, datapool.length-1);
     let tag = datapool[tagInfo];
     let datapoolTag = `Feature: Administracion de tag

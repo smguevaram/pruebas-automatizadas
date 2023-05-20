@@ -34,12 +34,22 @@ When("I enter contentInput {string}", async function (contentInput) {
   return await element.setValue(contentInput);
 });
 
+When("I enter contentInput {kraken-string} faker", async function (contentInput) {
+  let element = await this.driver.$("#tag-name");
+  return await element.setValue(contentInput);
+});
+
 When("I enter slug {string}", async function (contentInput) {
   let element = await this.driver.$("#tag-slug");
   return await element.setValue(contentInput);
 });
 
 When("I enter description {string}", async function (contentInput) {
+  let element = await this.driver.$("#tag-description");
+  return await element.setValue(contentInput);
+});
+
+When("I enter description {kraken-string} faker", async function (contentInput) {
   let element = await this.driver.$("#tag-description");
   return await element.setValue(contentInput);
 });
@@ -71,6 +81,21 @@ Then("I check name tag is not empty", async function () {
   }
 
   throw new Error('A tag was created with an empty name')
+  
+});
+
+Then("I check msg valid url", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('you must specify a valid url or relative path')) {
+      return
+    }
+  }
+
+  throw new Error('A new menu was created with an invalid url')
   
 });
 
@@ -198,7 +223,7 @@ When(
 );
 
 When(
-  "I click in inputLabel {string} and type {string}",
+  "I click in inputLabel {string} and type {kraken-string} faker",
   async function (inputLabel, type) {
     if (inputLabel == "empty") inputLabel = "";
 
@@ -209,6 +234,42 @@ When(
 
       if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
         await elements[i].setValue(type);
+        break;
+      }
+    }
+  }
+);
+
+When(
+  "I search for label {string} and url type {string}",
+  async function (inputLabel, type) {
+    if (inputLabel == "empty") inputLabel = "";
+
+    const elements = await this.driver.$$("div[class='gh-blognav-line']");
+
+    for (let i = 0; i < elements.length; i++) {
+      const elementText = await elements[i].$('input').getValue();
+
+      if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
+        await elements[i].$("span[class='gh-blognav-url ember-view']").$('input').setValue(type);
+        break;
+      }
+    }
+  }
+);
+
+When(
+  "I search for label {kraken-string} and url type {kraken-string} faker",
+  async function (label, type) {
+    if (label == "empty") label = "";
+
+    const elements = await this.driver.$$("div[class='gh-blognav-line']");
+
+    for (let i = 0; i < elements.length; i++) {
+      const elementText = await elements[i].$('input').getValue();
+
+      if (elementText.toLowerCase() === label.toLowerCase()) {
+        await elements[i].$("span[class='gh-blognav-url ember-view']").$('input').setValue(type);
         break;
       }
     }
@@ -244,6 +305,23 @@ When(
 
 
 Then("I check that exist {string} in menu's list", async function (name) {
+  const elements = await this.driver.$$("input");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getValue();
+
+    if (elementText.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+  }
+});
+
+Then("I check that exist {kraken-string} in menu's list faker", async function (name) {
   const elements = await this.driver.$$("input");
   let elementFound = false;
 
@@ -419,6 +497,24 @@ Then("I check that exist {string} in tag's list", async function (name) {
   }
 });
 
+Then("I check that exist {kraken-string} in tag's list faker", async function (name) {
+  const elements = await this.driver.$$("h3[class='gh-tag-list-name']");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+      break;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+  }
+});
+
 Then(
   "I check that exist {string} with state {string} in post's or page's list",
   async function (name,state) {
@@ -483,8 +579,41 @@ Then(
   }
 );
 
+Then(
+  "I change web attribute {string} for newTitle {kraken-string} faker",
+  async function (attribute,newTitle) {
+    const elements = await this.driver.$$("div[class='gh-setting-first']");
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].$("div[class='gh-setting-title']").getText();
+
+      if (titleRow.toLowerCase().includes(attribute.toLowerCase())) {
+        await elements[i].$("button").click();
+        await elements[i].$$('input')[0].setValue(newTitle);
+      }
+    }
+
+  }
+);
+
 When(
   "I change web attribute {string} for newDescription {string}",
+  async function (attribute,newDescription) {
+    const elements = await this.driver.$$("div[class='gh-setting-first']");
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].$("div[class='gh-setting-title']").getText();
+
+      if (titleRow.toLowerCase().includes(attribute.toLowerCase())) {
+        await elements[i].$$('input')[1].setValue(newDescription);
+      }
+    }
+
+  }
+);
+
+When(
+  "I change web attribute {string} for newDescription {kraken-string} faker",
   async function (attribute,newDescription) {
     const elements = await this.driver.$$("div[class='gh-setting-first']");
 
@@ -674,9 +803,24 @@ Then(
       if (!elementFound) {
         throw new Error(`El titulo es diferente al titulo comparado ${newTitle}`);
       }
-    }
+    } 
+);
 
-    
+Then(
+  "I check title page is newTitle {kraken-string} faker",
+  async function (newTitle) {
+    const element = await this.driver.$("div[class='gh-nav-menu-details-blog']");
+
+      const elementText = await element.getText();
+
+      if (elementText.toLowerCase() === newTitle.toLowerCase()) {
+        elementFound = true;
+      }
+
+      if (!elementFound) {
+        throw new Error(`El titulo es diferente al titulo comparado ${newTitle}`);
+      }
+    } 
 );
 
 Then(
