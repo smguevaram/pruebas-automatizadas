@@ -898,6 +898,27 @@ Then(
 );
 
 Then(
+  "I check that exist {kraken-string} in email's invitations faker",
+  async function (name) {
+    const elements = await this.driver.$$("h3[class='apps-card-app-title']");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
+
+      if (titleRow.toLowerCase() === name.toLowerCase()) {
+        elementFound = true;
+        break;
+      }
+    }
+
+    if (!elementFound) {
+      throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+    }
+  }
+);
+
+Then(
   "I click on user {string}",
   async function (user) {
     const elements = await this.driver.$$("h3[class='apps-card-app-title']");

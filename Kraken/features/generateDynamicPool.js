@@ -138,6 +138,28 @@ Then I check title page is newTitle "$$name_1" faker`;
     datapoolMenu
   );
 
+  datapoolMenu = `Feature: Administracion de usuarios
+  @user1 @web
+  Scenario:Invitar a un nuevo usuario con un correo válido
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 5 seconds
+    When I click in buttonName 'staff' 
+    And I wait for 5 seconds
+    And I click in button 'invite people'
+    And I wait for 5 seconds
+    And I click in inputLabel 'empty' and type "$email_1" faker
+    And I wait for 5 seconds
+    And I click in button 'send invitation now'
+    And I wait for 6 seconds
+    And I click in buttonName 'tags'
+    And I wait for 5 seconds
+    And I click in buttonName 'staff' 
+    Then I check that exist "$$email_1" in email's invitations faker`;
+  fs.writeFileSync(
+    "../poolDinamico/dataDinamico-inviteUser.feature",
+    datapoolMenu
+  );
+
 
 }
 
