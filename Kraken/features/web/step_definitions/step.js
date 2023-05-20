@@ -1,7 +1,8 @@
 const { Given, When, Then } = require("@cucumber/cucumber");
 const fs = require("fs");
 const properties = require('../../../properties.json')
-const info_tags = require('../../mocks/TAGS_TRUE_MOCK.json')
+const info_tags = require('../../mocks/TAGS_MOCK.json')
+const info_users = require('../../mocks/USERS_MOCK.json')
 
 When("I enter email {kraken-string}", async function (email) {
   let element = await this.driver.$("#ember8");
@@ -44,6 +45,21 @@ When("I enter description {string}", async function (contentInput) {
   return await element.setValue(contentInput);
 });
 
+When("I enter bio {string}", async function (bioInput) {
+  let element = await this.driver.$("#user-bio");
+  return await element.setValue(bioInput);
+});
+
+When("I enter location {string}", async function (locationInput) {
+  let element = await this.driver.$("#user-location");
+  return await element.setValue(locationInput);
+});
+
+When("I enter website {string}", async function (websiteInput) {
+  let element = await this.driver.$("input#user-website");
+  return await element.setValue(websiteInput);
+});
+
 Then("I check description is longer", async function () {
   let elements = await this.driver.$$("p[class='response']");
 
@@ -57,6 +73,104 @@ Then("I check description is longer", async function () {
 
   throw new Error('No esta fallando cuando se tiene mas de 500 caracteres')
   
+});
+
+Then("I check bio is longer", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('bio is too long')) {
+      return;
+    }
+  }
+
+  throw new Error('No se encontraron elementos que indiquen que la biografía tiene más de 200 caracteres');
+});
+
+Then("I check that the email is invalid", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('invalid email')) {
+      return;
+    }
+  }
+
+  throw new Error('No se encontraron elementos que indiquen que el correo electrónico es inválido');
+});
+
+Then("I check that the website is invalid", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('website is not a valid url')) {
+      return;
+    }
+  }
+
+  throw new Error('No se encontraron elementos que indiquen que el sitio web es inválido');
+});
+
+Then("I check that the email is invalid 2", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('please supply a valid email address')) {
+      return;
+    }
+  }
+
+  throw new Error('No se encontraron elementos que indiquen que el correo electrónico es inválido');
+});
+
+Then("I check that the field is empty", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('please enter an email')) {
+      return;
+    }
+  }
+
+  throw new Error('No se encontraron elementos que indiquen que el campo está vacío');
+});
+
+Then("I check that the field is empty 3.0", async function () {
+  let elements = await this.driver.$$("p[class='response']");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('Please supply a valid email address')) {
+      return;
+    }
+  }
+
+  throw new Error('No se encontraron elementos que indiquen que el campo está vacío');
+});
+
+Then("I check that the field is empty 2.0", async function () {
+  let elements = await this.driver.$$("div.gh-alert-content");
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase().includes('value in [users.name] cannot be blank')) {
+      return;
+    }
+  }
+
+  throw new Error('No se encontraron elementos que indiquen que el campo está vacío');
 });
 
 When("I click in buttonName {string}", async function (buttonName) {
@@ -201,9 +315,25 @@ When(
 );
 
 When(
-  "I type in input {string} and type {string}",
-  async function (input, type) {
+  "I click in inputLabel {string} and type {string} 2",
+  async function (inputLabel, type) {
+    if (inputLabel == "empty") inputLabel = "";
 
+    const elements = await this.driver.$$("input#user-email");
+
+    for (let i = 0; i < elements.length; i++) {
+      const elementText = await elements[i].getValue();
+
+      if (elementText.toLowerCase() === inputLabel.toLowerCase()) {
+        await elements[i].setValue(type);
+        break;
+      }
+    }
+  }
+);
+
+When("I type in input {string} and type {string}",
+  async function (input, type) {
     const elements = await this.driver.$$("input");
 
     for (let i = 0; i < elements.length; i++) {
@@ -216,6 +346,68 @@ When(
     }
   }
 );
+
+When("I change the email to {string}", async function (newEmail) {
+  const emailField = await this.driver.$('input#user-email');
+  await emailField.clearValue();
+  await emailField.setValue(newEmail);
+});
+
+When("I clear the full name field", async function () {
+  const fullNameField = await this.driver.$('input[id="user-name"]');
+  await fullNameField.clearValue();
+});
+
+When("I clear the email field", async function () {
+  const emailField = await this.driver.$('input[id="user-email"]');
+  await emailField.clearValue();
+});
+
+Then("I check that the email is {string}", async function (email) {
+  const emailField = await this.driver.$('input#user-email');
+  const fieldValue = await emailField.getValue();
+
+  if (fieldValue.toLowerCase() !== email.toLowerCase()) {
+    throw new Error(`El correo electrónico no coincide. Se esperaba: ${email}, se encontró: ${fieldValue}`);
+  }
+});
+
+Then("I check that the slug is {string}", async function (slug) {
+  const slugField = await this.driver.$('input#user-slug');
+  const fieldValue = await slugField.getValue();
+
+  if (fieldValue.toLowerCase() !== slug.toLowerCase()) {
+    throw new Error(`El slug no coincide. Se esperaba: ${slug}, se encontró: ${fieldValue}`);
+  }
+});
+
+Then("I check that the bio is {string}", async function (bio) {
+  const bioField = await this.driver.$('textarea#user-bio');
+  const fieldValue = await bioField.getValue();
+
+  if (fieldValue.toLowerCase() !== bio.toLowerCase()) {
+    throw new Error(`La bio no coincide. Se esperaba: ${bio}, se encontró: ${fieldValue}`);
+  }
+});
+
+Then("I check that the location is {string}", async function (location) {
+  const locationField = await this.driver.$('input#user-location');
+  const fieldValue = await locationField.getValue();
+
+  if (fieldValue.toLowerCase() !== location.toLowerCase()) {
+    throw new Error(`La ubicación no coincide. Se esperaba: ${location}, se encontró: ${fieldValue}`);
+  }
+});
+
+Then("I check that the website is {string}", async function (website) {
+  const websiteField = await this.driver.$('input#user-website');
+  const fieldValue = await websiteField.getValue();
+
+  if (fieldValue.toLowerCase() !== website.toLowerCase()) {
+    throw new Error(`El sitio web no coincide. Se esperaba: ${website}, se encontró: ${fieldValue}`);
+  }
+});
+
 
 When(
   "I type in input {string} and id {string}",
@@ -349,7 +541,7 @@ Then("I check state {string} for user {string}", async function (state,user) {
 });
 
 Then("I check for user name {string}", async function (name) {
-  const elements = await this.driver.$$("h3[class='ma0 pa0 gh-members-list-name ']");
+  const elements = await this.driver.$$("h3.apps-card-app-title");
   let elementFound = false;
 
   for (let i = 0; i < elements.length; i++) {
@@ -467,6 +659,7 @@ Then(
 
   }
 );
+
 
 Then(
   "I change web attribute {string} for newTitle {string} 2.0",
