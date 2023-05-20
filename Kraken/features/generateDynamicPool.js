@@ -138,27 +138,157 @@ Then I check title page is newTitle "$$name_1" faker`;
     datapoolMenu
   );
 
-  datapoolMenu = `Feature: Administracion de usuarios
+  let datapoolUser = `Feature: Administracion de usuarios
   @user1 @web
   Scenario:Invitar a un nuevo usuario con un correo válido
     Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-    And I wait for 5 seconds
+    And I wait for 2 seconds
     When I click in buttonName 'staff' 
-    And I wait for 5 seconds
+    And I wait for 2 seconds
     And I click in button 'invite people'
-    And I wait for 5 seconds
+    And I wait for 2 seconds
     And I click in inputLabel 'empty' and type "$email_1" faker
-    And I wait for 5 seconds
+    And I wait for 2 seconds
     And I click in button 'send invitation now'
-    And I wait for 6 seconds
+    And I wait for 2 seconds
     And I click in buttonName 'tags'
-    And I wait for 5 seconds
+    And I wait for 2 seconds
     And I click in buttonName 'staff' 
     Then I check that exist "$$email_1" in email's invitations faker`;
-  fs.writeFileSync(
-    "../poolDinamico/dataDinamico-inviteUser.feature",
-    datapoolMenu
-  );
+  fs.writeFileSync("../poolDinamico/dataDinamico-inviteUser.feature",datapoolUser);
+
+  datapoolUser = `Feature: Administracion de usuarios
+  @user2 @web
+  Scenario:Invitar a un nuevo usuario con un correo inválido
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 2 seconds
+    When I click in buttonName 'staff' 
+    And I wait for 2 seconds
+    And I click in button 'invite people'
+    And I wait for 2 seconds
+    And I click in inputLabel 'empty' and type "$name_1" faker
+    And I wait for 2 seconds
+    And I click in button 'send invitation now'
+    And I wait for 2 seconds
+    Then I check that the email is invalid`;
+  fs.writeFileSync("../poolDinamico/dataDinamico-inviteUserinv.feature",datapoolUser);
+
+  datapoolUser = `Feature: Administracion de usuarios
+  @user4 @web
+  Scenario:Cambiar nombre de usuario por un nombre válido
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 2 seconds
+    When I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    And I wait for 2 seconds
+    And I type in input "$name_2" and type 'full name' faker
+    And I click in button 'save'
+    And I wait for 2 seconds
+    And I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I check for user name "$$name_2" faker
+    And I wait for 2 seconds
+    And I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user "$$name_2" faker
+    And I wait for 2 seconds
+    And I type in input 'ghost' and type 'full name'
+    And I click in button 'save'
+    And I wait for 2 seconds
+    And I click in buttonName 'staff'
+    And I wait for 2 seconds
+    Then I check for user name 'ghost'`;
+  fs.writeFileSync("../poolDinamico/dataDinamico-editValidUserName.feature",datapoolUser);
+
+  datapoolUser = `Feature: Administracion de usuarios
+  @user5 @web
+  Scenario: Editando un correo valido
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 2 seconds
+    When I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    And I wait for 2 seconds
+    And I change the email to "$email_3" faker
+    And I click anywhere on the page
+    And I wait for 2 seconds
+    And I click in button 'save'
+    And I wait for 3 seconds
+    And I click in buttonName 'staff'
+    And I click on user 'ghost'
+    And I wait for 2 seconds
+    Then I check that the email is "$$email_3" faker`;
+  fs.writeFileSync("../poolDinamico/dataDinamico-editValidEmail.feature",datapoolUser);
+
+  datapoolUser = `Feature: Administracion de usuarios
+  @user6 @web
+  Scenario: Editando correo por un correo invalido
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 2 seconds
+    When I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    And I wait for 2 seconds
+    And I change the email to "$name_2" faker
+    And I click anywhere on the page
+    And I wait for 2 seconds
+    And I click in buttonName 'save'
+    And I wait for 2 seconds
+    Then I check that the email is invalid 2`;
+  fs.writeFileSync("../poolDinamico/dataDinamico-editInvalidEmail.feature",datapoolUser);
+
+  datapoolUser = `Feature: Administracion de usuarios
+  @user8 @web
+  Scenario: Cambiar slug
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 2 seconds
+    When I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    And I wait for 2 seconds
+    And I type in input "$name_5" and type 'slug' faker
+    And I click in button 'save'
+    And I wait for 2 seconds
+    And I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    Then I check that the slug is "$$name_5" faker`;
+  fs.writeFileSync("../poolDinamico/dataDinamico-changeSlug.feature",datapoolUser);
+
+  datapoolUser = `Feature: Administracion de usuarios
+  @user14 @web
+  Scenario: Agregar un website valido
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 2 seconds
+    When I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    And I wait for 2 seconds
+    And I enter website "$url_1" faker
+    And I click in button 'save'
+    And I wait for 2 seconds
+    And I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    Then I check that the website is "$$url_1" faker`;
+  fs.writeFileSync("../poolDinamico/dataDinamico-createValidWebsite.feature",datapoolUser);
+
+  datapoolUser = `Feature: Administracion de usuarios
+  @user15 @web
+  Scenario: Agregar un website inválido
+    Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
+    And I wait for 2 seconds
+    When I click in buttonName 'staff'
+    And I wait for 2 seconds
+    And I click on user 'ghost'
+    And I wait for 2 seconds
+    And I enter website "$number_1" faker
+    And I click in button 'save'
+    And I wait for 2 seconds
+    Then I check that the website is invalid
+    And I wait for 2 seconds`;
+  fs.writeFileSync("../poolDinamico/dataDinamico-createInvalidWebsite.feature",datapoolUser);
 
 
 }

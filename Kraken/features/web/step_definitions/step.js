@@ -65,6 +65,11 @@ When("I enter website {string}", async function (websiteInput) {
   return await element.setValue(websiteInput);
 });
 
+When("I enter website {kraken-string} faker", async function (websiteInput) {
+  let element = await this.driver.$("input#user-website");
+  return await element.setValue(websiteInput);
+});
+
 When("I enter description {kraken-string} faker", async function (contentInput) {
   let element = await this.driver.$("#tag-description");
   return await element.setValue(contentInput);
@@ -459,7 +464,28 @@ When("I type in input {string} and type {string}",
   }
 );
 
+When("I type in input {kraken-string} and type {string} faker",
+  async function (input, type) {
+    const elements = await this.driver.$$("input");
+
+    for (let i = 0; i < elements.length; i++) {
+      const elementText = await elements[i].getAttribute("placeholder");
+
+      if (elementText.toLowerCase() === type.toLowerCase()) {
+        await elements[i].setValue(input);
+        break;
+      }
+    }
+  }
+);
+
 When("I change the email to {string}", async function (newEmail) {
+  const emailField = await this.driver.$('input#user-email');
+  await emailField.clearValue();
+  await emailField.setValue(newEmail);
+});
+
+When("I change the email to {kraken-string} faker", async function (newEmail) {
   const emailField = await this.driver.$('input#user-email');
   await emailField.clearValue();
   await emailField.setValue(newEmail);
@@ -484,7 +510,25 @@ Then("I check that the email is {string}", async function (email) {
   }
 });
 
+Then("I check that the email is {kraken-string} faker", async function (email) {
+  const emailField = await this.driver.$('input#user-email');
+  const fieldValue = await emailField.getValue();
+
+  if (fieldValue.toLowerCase() !== email.toLowerCase()) {
+    throw new Error(`El correo electrónico no coincide. Se esperaba: ${email}, se encontró: ${fieldValue}`);
+  }
+});
+
 Then("I check that the slug is {string}", async function (slug) {
+  const slugField = await this.driver.$('input#user-slug');
+  const fieldValue = await slugField.getValue();
+
+  if (fieldValue.toLowerCase() !== slug.toLowerCase()) {
+    throw new Error(`El slug no coincide. Se esperaba: ${slug}, se encontró: ${fieldValue}`);
+  }
+});
+
+Then("I check that the slug is {kraken-string} faker", async function (slug) {
   const slugField = await this.driver.$('input#user-slug');
   const fieldValue = await slugField.getValue();
 
@@ -512,6 +556,15 @@ Then("I check that the location is {string}", async function (location) {
 });
 
 Then("I check that the website is {string}", async function (website) {
+  const websiteField = await this.driver.$('input#user-website');
+  const fieldValue = await websiteField.getValue();
+
+  if (fieldValue.toLowerCase() !== website.toLowerCase()) {
+    throw new Error(`El sitio web no coincide. Se esperaba: ${website}, se encontró: ${fieldValue}`);
+  }
+});
+
+Then("I check that the website is {kraken-string} faker", async function (website) {
   const websiteField = await this.driver.$('input#user-website');
   const fieldValue = await websiteField.getValue();
 
@@ -670,6 +723,25 @@ Then("I check state {string} for user {string}", async function (state,user) {
 });
 
 Then("I check for user name {string}", async function (name) {
+  const elements = await this.driver.$$("h3.apps-card-app-title");
+  let elementFound = false;
+
+  for (let i = 0; i < elements.length; i++) {
+    const elementText = await elements[i].getText();
+
+    if (elementText.toLowerCase() === name.toLowerCase()) {
+      elementFound = true;
+      break;
+    }
+  }
+
+  if (!elementFound) {
+    throw new Error(`No se encontró ningún elemento con el nombre ${name}`);
+  }
+
+});
+
+Then("I check for user name {kraken-string} faker", async function (name) {
   const elements = await this.driver.$$("h3.apps-card-app-title");
   let elementFound = false;
 
@@ -920,6 +992,24 @@ Then(
 
 Then(
   "I click on user {string}",
+  async function (user) {
+    const elements = await this.driver.$$("h3[class='apps-card-app-title']");
+    let elementFound = false;
+
+    for (let i = 0; i < elements.length; i++) {
+      const titleRow = await elements[i].getText();
+
+      if (titleRow.toLowerCase() === user.toLowerCase()) {
+        await elements[i].click()
+        break;
+      }
+    }
+
+  }
+);
+
+Then(
+  "I click on user {kraken-string} faker",
   async function (user) {
     const elements = await this.driver.$$("h3[class='apps-card-app-title']");
     let elementFound = false;

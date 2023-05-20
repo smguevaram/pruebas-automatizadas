@@ -16,17 +16,17 @@ function generateScenerios() {
     @user1 @web
     Scenario:Invitar a un nuevo usuario con un correo válido
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff' 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'invite people'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in inputLabel 'empty' and type '${user.user_email}'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'send invitation now'
-      And I wait for 6 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'tags'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff' 
       Then I check that exist '${user.user_email}' in email's invitations
       
@@ -40,15 +40,15 @@ function generateScenerios() {
     @user2 @web
     Scenario:Invitar a un nuevo usuario con un correo inválido
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff' 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'invite people'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in inputLabel 'empty' and type '${user.user_name}'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'send invitation now'
-      And I wait for 6 seconds
+      And I wait for 2 seconds
       Then I check that the email is invalid
       
 `;
@@ -60,15 +60,15 @@ function generateScenerios() {
     @user3 @web
     Scenario:Invitar a un nuevo usuario con el campo de correo vacío
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff' 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'invite people'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in inputLabel 'empty' and type '${user.user_empty}'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'send invitation now'
-      And I wait for 6 seconds
+      And I wait for 2 seconds
       Then I check that the field is empty
 `;
     fs.writeFileSync("../poolApriori/datapool-inviteUserEmpty.feature", datapoolUser);
@@ -79,27 +79,27 @@ function generateScenerios() {
     @user4 @web
     Scenario: Cambiar nombre de usuario por un nombre válido
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I type in input '${user.user_name}' and type 'full name'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I check for user name '${user.user_name}'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user '${user.user_name}'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I type in input 'ghost' and type 'full name'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       Then I check for user name 'ghost'
         
   `;
@@ -111,19 +111,19 @@ function generateScenerios() {
     @user5 @web
     Scenario: Editando un correo valido
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I change the email to '${user.user_email}'
       And I click anywhere on the page
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       Then I check that the email is '${user.user_email}'
         
   `;
@@ -135,16 +135,16 @@ function generateScenerios() {
     @user6 @web
     Scenario: Editando correo por un correo invalido
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 3 seconds
+      And I wait for 2 seconds
       And I change the email to '${user.user_name}'
       And I click anywhere on the page
-      And I wait for 3 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'save'
-      And I wait for 3 seconds
+      And I wait for 2 seconds
       Then I check that the email is invalid 2
         
   `;
@@ -156,16 +156,16 @@ function generateScenerios() {
     @user7 @web
     Scenario: Editando correo por un correo vacío
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I clear the email field
       And I click anywhere on the page
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in button 'save'
-      And I wait for 3 seconds
+      And I wait for 2 seconds
       Then I check that the email is invalid 2
         
   `;
@@ -177,16 +177,16 @@ function generateScenerios() {
     @user8 @web
     Scenario: Cambiar slug
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I type in input '${user.user_name}' and type 'slug'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
       Then I check that the slug is '${user.user_name}'
       
@@ -200,16 +200,16 @@ function generateScenerios() {
     @user9 @web
     Scenario: Crear una bio con menos de 200 caracteres
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I enter bio '${user.bio_UnderUL}'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
       Then I check that the bio is '${user.bio_UnderUL}'
       
@@ -223,16 +223,16 @@ function generateScenerios() {
     @user10 @web
     Scenario: Crear una bio con 200 caracteres
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I enter bio '${user.bio_UL}'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
       Then I check that the bio is '${user.bio_UL}'
       
@@ -246,14 +246,14 @@ function generateScenerios() {
     @user11 @web
     Scenario: Crear una bio con mas de 200 caracteres
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I enter bio '${user.bio_OverUL}'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       Then I check bio is longer
       
         
@@ -266,16 +266,16 @@ function generateScenerios() {
     @user12 @web
     Scenario: Agregar una locación valida
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I enter location '${user.valid_Location}'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
       Then I check that the location is '${user.valid_Location}'
       
@@ -289,16 +289,16 @@ function generateScenerios() {
     @user13 @web
     Scenario: Agregar una locación considerada invalida
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I enter location '${user.invalid_Location}'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
       Then I check that the location is '${user.invalid_Location}'
       
@@ -312,16 +312,16 @@ function generateScenerios() {
     @user14 @web
     Scenario: Agregar un website valido
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I enter website '${user.valid_website}'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
       Then I check that the website is '${user.valid_website}'
       
@@ -335,31 +335,19 @@ function generateScenerios() {
     @user15 @web
     Scenario: Agregar un website inválido
       Given I authenticate email "<USERNAME>" and password "<PASSWORD>" 
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       When I click in buttonName 'staff'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I click on user 'ghost'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       And I enter website '${user.invalid_website}'
       And I click in button 'save'
-      And I wait for 5 seconds
+      And I wait for 2 seconds
       Then I check that the website is invalid
-      And I wait for 3 seconds
-      
-      
-        
-  `;
+      And I wait for 2 seconds
+      `;
       fs.writeFileSync("../poolApriori/datapool-createInvalidWebsite.feature", datapoolUser);
 
-
-      
-
-      
-
-
-      
-
-  
       console.log('Scenerios created');
   }
   
