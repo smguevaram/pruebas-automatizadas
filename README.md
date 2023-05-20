@@ -11,22 +11,7 @@
 
 ## Semana 7
 
-### Generar escenarios de prueba con kraken
-
-Para generar los escenerios de prueba usando Kraken, se debe ubicar en el path **/features** de la carpeta kraken y ejecutar el comando `node ./--archivo.js--` (archivo.js hace referencia a cualquiera de los archivos listados en la imagen siguiente) 
-![image](https://github.com/smguevaram/pruebas-automatizadas/assets/124002572/3fb6478d-aefb-4ac9-8515-cec05418d0df)
-
-Estos scripts se encargaran de generar los escenarios usando un set de datos a-priori o generando los datos por medio de faker.
-
-Una vez ejecutodos los scripts, se generaran 2 carpetas **poolApriori y poolDinamico** y cada una contentra las features que podemos probar usando kraken.
-
-![image](https://github.com/smguevaram/pruebas-automatizadas/assets/124002572/444be9a1-b502-42d6-847c-f0c3a8e7b470)
-
-
-Para ejecutar cada feature, se debe mover o copiar el `.feature` a la ruta **/features** y en la terminal correr el comando `npx kraken-node run` ubicados en la raiz del proyecto como se muestra en la imagen
-![image](https://github.com/smguevaram/pruebas-automatizadas/assets/124002572/d28d57f5-93d5-462b-8716-ffa38b9767b3)
-
-
+La forma para generar los escenarios de prueba se encuentran en la wiki del repositorio
 
 ## Semana 6
 
