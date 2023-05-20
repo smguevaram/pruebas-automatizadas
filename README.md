@@ -11,7 +11,7 @@
 
 ## Semana 7
 
-La forma para generar los escenarios de prueba se encuentran [aquí]([https://github.com/smguevaram/pruebas-automatizadas/wiki](https://github.com/smguevaram/pruebas-automatizadas/wiki/Generar-escenarios-de-prueba)
+La forma para generar los escenarios de prueba se encuentran [aquí](https://github.com/smguevaram/pruebas-automatizadas/wiki/Generar-escenarios-de-prueba)
 
 ## Semana 6
 
