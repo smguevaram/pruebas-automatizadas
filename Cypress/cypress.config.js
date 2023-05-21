@@ -5,7 +5,6 @@ const createEsbuildPlugin = require("@badeball/cypress-cucumber-preprocessor/esb
 const allureWriter = require("@shelex/cypress-allure-plugin/writer");
 
 async function setupNodeEvents(on, config) {
-  // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
   await preprocessor.addCucumberPreprocessorPlugin(on, config);
 
   on(
@@ -15,12 +14,11 @@ async function setupNodeEvents(on, config) {
     })
   );
   allureWriter(on, config);
-  // Make sure to return the config object as it might have been modified by the plugin.
   return config;
 }
 
 module.exports = defineConfig({
-  e2e: {
+  /* e2e: {
     setupNodeEvents,
     specPattern: "cypress/e2e/features/*.feature",
     stepDefinitions: "./cypress/e2e/step_definitions/*.js",
@@ -29,5 +27,15 @@ module.exports = defineConfig({
     env: {
       allureReuseAfterSpec: true,
     },
-  },
+  }, */
+
+  e2e: {
+    setupNodeEvents,
+    specPattern: "cypress/semana7/*.cy.js",
+    baseUrl: "http://localhost:3002/",
+    chromeWebSecurity: false,
+    env: {
+      allureReuseAfterSpec: true,
+    },
+  }
 });
