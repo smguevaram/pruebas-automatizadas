@@ -277,6 +277,11 @@
   "resolved" "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.17.18.tgz"
   "version" "0.17.18"
 
+"@faker-js/faker@^8.0.1":
+  "integrity" "sha512-kbh5MenpTN9U0B4QcOI1NoTPlZHniSYQ3BHbhAnPjJGAmmFqxoxTE4sGdpy7ZOO9038DPGCuhXyMkjOr05uVwA=="
+  "resolved" "https://registry.npmjs.org/@faker-js/faker/-/faker-8.0.1.tgz"
+  "version" "8.0.1"
+
 "@isaacs/cliui@^8.0.2":
   "integrity" "sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA=="
   "resolved" "https://registry.npmjs.org/@isaacs/cliui/-/cliui-8.0.2.tgz"
