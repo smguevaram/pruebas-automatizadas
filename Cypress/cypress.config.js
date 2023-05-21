@@ -31,7 +31,7 @@ module.exports = defineConfig({
 
   e2e: {
     setupNodeEvents,
-    specPattern: "cypress/semana7/*.cy.js",
+    specPattern: "cypress/semana7/*/*/*.cy.js",
     baseUrl: "http://localhost:3002/",
     chromeWebSecurity: false,
     env: {
