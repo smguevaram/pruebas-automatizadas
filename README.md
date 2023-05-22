@@ -11,7 +11,8 @@
 
 ## Semana 7
 
-La forma para generar los escenarios de prueba se encuentran [aquí](https://github.com/smguevaram/pruebas-automatizadas/wiki/Generar-escenarios-de-prueba)
+La generación de escenarios de prueba de Kraken se pueden ver [aquí](https://github.com/smguevaram/pruebas-automatizadas/wiki/Generar-escenarios-de-prueba)
+Los escenarios de prueba de Cypress se puede ver [aquí](https://github.com/smguevaram/pruebas-automatizadas/wiki/Pruebas-cypress)
 
 ## Semana 6
 
